@@ -1,36 +1,210 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cây Gia Phả Nguyễn - Family Genealogy Web App
 
-## Getting Started
+A modern Vietnamese family genealogy web application built with Next.js, React, TypeScript, and React Flow. This application allows family members to view, search, and manage information about their family tree.
 
-First, run the development server:
+## 🌳 Features
+
+- **Interactive Family Tree** - Visual representation of family relationships with zoom and pan capabilities
+- **Person Profiles** - Detailed information about each family member
+- **Search Functionality** - Find family members by name
+- **Family Management** - Add, edit, and manage family member information
+- **Responsive Design** - Works on desktop, tablet, and mobile devices
+- **Vietnamese Language Support** - UI and content in Vietnamese
+
+## 🛠️ Tech Stack
+
+- **Frontend Framework**: Next.js 16+ with App Router
+- **UI Library**: React 19
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Form Handling**: React Hook Form + Zod
+- **Visualization**: React Flow
+- **Icons**: Lucide React
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                 # Next.js App Router routes
+│   ├── page.tsx        # Home page
+│   ├── layout.tsx      # Root layout with header
+│   ├── tree/           # Family tree page
+│   ├── search/         # Search page
+│   ├── people/[id]/    # Individual person profile
+│   └── admin/          # Admin/management page
+├── components/          # Shared UI components
+│   ├── Header.tsx
+│   └── FamilyTreeNode.tsx
+├── features/            # Feature-specific components
+│   ├── family-tree/    # Family tree components
+│   ├── person/         # Person profile components
+│   ├── search/         # Search feature components
+│   └── admin/          # Admin feature components
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+│   └── family-utils.ts
+├── types/              # TypeScript types and interfaces
+│   └── index.ts
+└── data/               # Mock data
+    └── mock-family.ts
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18.17.0 or later
+- npm or yarn
+
+### Installation
+
+1. Navigate to the project directory:
+```bash
+cd familytree-app
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+### Development
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build the optimized production version:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Start the production server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 Pages and Routes
 
-## Deploy on Vercel
+| Route | Description |
+|-------|-------------|
+| `/` | Home page with introduction and feature overview |
+| `/tree` | Interactive family tree visualization |
+| `/people/[id]` | Individual person's profile and family relationships |
+| `/search` | Search for family members |
+| `/admin` | Management interface to add/edit members |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📊 Data Model
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Person Type
+```typescript
+interface Person {
+  id: string;
+  fullName: string;
+  gender: 'male' | 'female' | 'other';
+  birthDate: string; // YYYY-MM-DD
+  deathDate?: string;
+  birthPlace?: string;
+  biography?: string;
+  avatarUrl?: string;
+  fatherId?: string;
+  motherId?: string;
+  spouseIds: string[];
+  childIds: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+```
+
+## 🎨 Design Features
+
+- **Clean, Modern Layout** - Minimal and organized interface
+- **Light Color Scheme** - Amber and slate colors for good readability
+- **Responsive Components** - Works seamlessly on all screen sizes
+- **Accessible Navigation** - Easy-to-use header and navigation
+- **Visual Hierarchy** - Clear organization of information
+
+## 📝 Mock Data
+
+The application comes with sample Vietnamese family data for demonstration. This includes:
+
+- Multiple generations (grandparents, parents, children)
+- Family relationships (parents, spouses, children)
+- Biographical information
+- Birth and death dates
+
+To modify the mock data, edit the file at `src/data/mock-family.ts`.
+
+## 🔄 Form Validation
+
+Forms use Zod for schema validation and React Hook Form for form state management:
+
+- Required field validation
+- Date format validation
+- Optional field support
+- Real-time error messages
+
+## 🚦 Current Progress
+
+✅ **Completed:**
+- Project structure and setup
+- TypeScript types definition
+- Mock family data
+- Home page
+- Family tree page with React Flow
+- Person profile pages
+- Search functionality
+- Admin/management interface with forms
+
+## 📋 Next Steps / TODO
+
+- [ ] Backend API integration
+- [ ] Database setup (choose: PostgreSQL, MongoDB, etc.)
+- [ ] User authentication
+- [ ] Image upload for avatars
+- [ ] Advanced filtering and sorting
+- [ ] Export family tree as PDF
+- [ ] Multiple language support
+- [ ] Dark mode support
+- [ ] Unit tests
+- [ ] E2E tests
+- [ ] Deployment
+
+## 🎯 Future Enhancements
+
+- **Advanced Search** - Filter by age, birthplace, etc.
+- **Relationship Mapping** - Visual connections between family members
+- **Timeline View** - Historical view of family events
+- **Photo Gallery** - Family photo collection
+- **Statistical Analysis** - Family statistics and insights
+- **Multi-user Support** - Role-based access control
+- **Activity Feed** - Track changes and updates
+
+## 📄 License
+
+This project is created for personal/family use.
+
+## 👨‍💻 Development Notes
+
+- Uses Next.js 16+ with Turbopack for fast builds
+- TypeScript strict mode enabled
+- Tailwind CSS for styling
+- ESLint configured for code quality
+- Git initialized and ready for version control
+
+## 🤝 Contributing
+
+This is a family project. Contributions are welcome to improve features and functionality.
+
+## 📧 Support
+
+For issues or suggestions, please create an issue or contact the project maintainer.
+
