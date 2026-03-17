@@ -20,7 +20,7 @@ import PersonDetailPanel from '@/features/family-tree/PersonDetailPanel';
 import FamilyTreeNode from '@/components/FamilyTreeNode';
 import { User } from 'lucide-react';
 
-// Custom node component
+// Thành phần nút tùy chỉnh
 function CustomPersonNode({ data }: { data: { person: Person; isSelected: boolean } }) {
   const { person, isSelected } = data;
   const birthYear = getYearOnly(person.birthDate);
@@ -51,7 +51,7 @@ function CustomPersonNode({ data }: { data: { person: Person; isSelected: boolea
   );
 }
 
-// Calculate generation level
+// Tính cấp độ thế hệ
 function getGenerationLevel(personId: string, peopleMap: Map<string, Person>): number {
   const visited = new Set<string>();
 
@@ -71,14 +71,14 @@ function getGenerationLevel(personId: string, peopleMap: Map<string, Person>): n
   return getAncestorDepth(personId);
 }
 
-// Calculate positions in grid
+// Tính vị trí trong lưới
 function calculateNodePositions(
   peopleMap: Map<string, Person>
 ): Map<string, { x: number; y: number }> {
   const positions = new Map<string, { x: number; y: number }>();
   const generationMap = new Map<number, string[]>();
 
-  // Group people by generation
+  // Nhóm người theo thế hệ
   mockPeople.forEach(person => {
     const gen = getGenerationLevel(person.id, peopleMap);
     if (!generationMap.has(gen)) {
@@ -87,7 +87,7 @@ function calculateNodePositions(
     generationMap.get(gen)!.push(person.id);
   });
 
-  // Position nodes
+  // Định vị các nút
   const maxGen = Math.max(...generationMap.keys());
   generationMap.forEach((peopleIds, gen) => {
     const y = (maxGen - gen) * 150;
@@ -108,13 +108,13 @@ export default function FamilyTreePage() {
     return map;
   }, []);
 
-  // Calculate positions
+  // Tính vị trí
   const positions = useMemo(
     () => calculateNodePositions(peopleMap),
     [peopleMap]
   );
 
-  // Create nodes
+  // Tạo các nút
   const nodes: Node[] = useMemo(
     () =>
       mockPeople.map(person => {

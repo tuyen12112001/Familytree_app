@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { Plus, Edit2, Trash2 } from 'lucide-react';
 import { mockPeople } from '@/data/mock-family';
 
-// Zod validation schema
+// Lược đồ xác thực Zod
 const personFormSchema = z.object({
   fullName: z.string().min(1, 'Tên không được để trống'),
   gender: z.enum(['male', 'female', 'other']),
@@ -36,7 +36,7 @@ export default function AdminPage() {
 
   const onSubmit = (data: PersonFormData) => {
     console.log('Form submitted:', data);
-    // Here you would typically send the data to an API
+    // Ở đây bạn thường sẽ gửi dữ liệu đến API
     alert(`${editingId ? 'Cập nhật' : 'Thêm'} thành viên: ${data.fullName}`);
     reset();
     setShowForm(false);

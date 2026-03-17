@@ -41,9 +41,9 @@ export const calculateGeneration = (
   person: Person,
   peopleMap: Map<string, Person>
 ): number => {
-  // Generation 0 is the root generation
-  // Ancestors have negative generation numbers
-  // Descendants have positive generation numbers
+  // Thế hệ 0 là thế hệ gốc
+  // Tổ tiên có số thế hệ âm
+  // Con cháu có số thế hệ dương
   
   const visited = new Set<string>();
   

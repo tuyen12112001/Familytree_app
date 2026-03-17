@@ -2,147 +2,147 @@
 
 ## ✅ Completed Tasks
 
-### Step 1: Project Setup
-- ✅ Created Next.js project with TypeScript, Tailwind CSS, and ESLint
-- ✅ Installed required packages:
-  - `reactflow` - For interactive family tree visualization
-  - `react-hook-form` - For form management
-  - `zod` - For schema validation
-  - `lucide-react` - For icons
-  - `@hookform/resolvers` - For form resolver
+### Step 1: Thiết lập Dự án
+- ✅ Tạo dự án Next.js với TypeScript, Tailwind CSS, và ESLint
+- ✅ Cài đặt các gói cần thiết:
+  - `reactflow` - Để trực quan hóa cây gia phả tương tác
+  - `react-hook-form` - Để quản lý biểu mẫu
+  - `zod` - Để xác thực lược đồ
+  - `lucide-react` - Để biểu tượng
+  - `@hookform/resolvers` - Để trình giải quyết biểu mẫu
 
-### Step 2: TypeScript Types
-- ✅ Created comprehensive type definitions in `src/types/index.ts`:
-  - `Person` interface with all required fields
-  - `Relationship` interface
-  - `FamilyTreeNode` interface
-  - `Gender` type
+### Step 2: Các Loại TypeScript
+- ✅ Tạo định nghĩa loại toàn diện trong `src/types/index.ts`:
+  - Giao diện `Person` với tất cả các trường bắt buộc
+  - Giao diện `Relationship`
+  - Giao diện `FamilyTreeNode`
+  - Loại `Gender`
 
-### Step 3: Mock Data
-- ✅ Created sample Vietnamese family data in `src/data/mock-family.ts`
-- ✅ Includes 12 mock family members across 3 generations
-- ✅ Includes utility functions:
-  - `getPeopleMap()` - Convert array to map
-  - `getPersonById()` - Get person by ID
-  - `searchPeople()` - Search functionality
+### Step 3: Dữ liệu Mẫu
+- ✅ Tạo dữ liệu gia đình Việt Nam mẫu trong `src/data/mock-family.ts`
+- ✅ Bao gồm 12 thành viên gia đình mẫu qua 3 thế hệ
+- ✅ Bao gồm các hàm tiện ích:
+  - `getPeopleMap()` - Chuyển mảng thành bản đồ
+  - `getPersonById()` - Lấy người theo ID
+  - `searchPeople()` - Chức năng tìm kiếm
 
-### Step 4: Utility Functions
-- ✅ Created family utility functions in `src/lib/family-utils.ts`:
-  - `calculateAge()` - Calculate age from birth/death dates
-  - `formatDate()` - Format dates in Vietnamese format
-  - `getGenderDisplay()` - Translate gender
-  - `getYearOnly()` - Extract year from date
-  - `calculateGeneration()` - Calculate generation level
-  - `getRelationship()` - Get relationship between two people
+### Step 4: Các Hàm Tiện ích
+- ✅ Tạo các hàm tiện ích gia đình trong `src/lib/family-utils.ts`:
+  - `calculateAge()` - Tính tuổi từ ngày sinh/ngày mất
+  - `formatDate()` - Định dạng ngày theo định dạng Việt Nam
+  - `getGenderDisplay()` - Dịch giới tính
+  - `getYearOnly()` - Trích xuất năm từ ngày
+  - `calculateGeneration()` - Tính cấp độ thế hệ
+  - `getRelationship()` - Lấy mối quan hệ giữa hai người
 
-### Step 5: Layout & Header
-- ✅ Updated main layout in `src/app/layout.tsx`
-- ✅ Created header component in `src/components/Header.tsx`
-  - Fixed navigation with all main pages
-  - Active state styling
-  - Responsive design
+### Step 5: Bố cục & Tiêu đề
+- ✅ Cập nhật bố cục chính trong `src/app/layout.tsx`
+- ✅ Tạo thành phần tiêu đề trong `src/components/Header.tsx`
+  - Điều hướng cố định với tất cả các trang chính
+  - Kiểu dáng trạng thái hoạt động
+  - Thiết kế đáp ứng
 
-### Step 6: Home Page
-- ✅ Created beautiful home page in `src/app/page.tsx`
-  - Hero section with title and description
-  - About section explaining the application
-  - 3 feature cards with descriptions
-  - CTA buttons for main actions
+### Step 6: Trang Chủ
+- ✅ Tạo trang chủ đẹp trong `src/app/page.tsx`
+  - Phần anh hùng với tiêu đề và mô tả
+  - Phần giới thiệu giải thích ứng dụng
+  - 3 thẻ tính năng với mô tả
+  - Các nút CTA cho các hành động chính
 
-### Step 7: Family Tree Page
-- ✅ Created interactive family tree in `src/app/tree/page.tsx`
-  - Uses React Flow for visualization
-  - Automatic node positioning based on generation
-  - Click to select family members
-  - Shows connections between family members
-  - MiniMap and Controls for navigation
-- ✅ Created FamilyTreeNode component in `src/components/FamilyTreeNode.tsx`
-- ✅ Created PersonDetailPanel in `src/features/family-tree/PersonDetailPanel.tsx`
-  - Shows detailed information in right panel
-  - Displays family relationships
-  - Quick access to related profiles
+### Step 7: Trang Cây Gia Phả
+- ✅ Tạo cây gia phả tương tác trong `src/app/tree/page.tsx`
+  - Sử dụng React Flow để trực quan hóa
+  - Định vị nút tự động dựa trên thế hệ
+  - Nhấp để chọn thành viên gia đình
+  - Hiển thị kết nối giữa các thành viên gia đình
+  - MiniMap và Điều khiển để điều hướng
+- ✅ Tạo thành phần FamilyTreeNode trong `src/components/FamilyTreeNode.tsx`
+- ✅ Tạo PersonDetailPanel trong `src/features/family-tree/PersonDetailPanel.tsx`
+  - Hiển thị thông tin chi tiết trong bảng bên phải
+  - Hiển thị mối quan hệ gia đình
+  - Truy cập nhanh vào hồ sơ liên quan
 
-### Step 8: Search Page
-- ✅ Created search page in `src/app/search/page.tsx`
-  - Search input with icon
-  - Real-time search results
-  - Click result to view profile
-  - Displays birth/death years and birthplace
+### Step 8: Trang Tìm kiếm
+- ✅ Tạo trang tìm kiếm trong `src/app/search/page.tsx`
+  - Đầu vào tìm kiếm với biểu tượng
+  - Kết quả tìm kiếm thời gian thực
+  - Nhấp kết quả để xem hồ sơ
+  - Hiển thị năm sinh/mất và nơi sinh
 
-### Step 9: Person Profile Page
-- ✅ Created person profile page in `src/app/people/[id]/page.tsx`
-  - Full profile information
-  - Avatar/default icon
-  - Basic information (age, birthdate, birthplace)
-  - Biography section
-  - Family relationships sidebar (parents, spouses, children)
-  - Links to related profiles
+### Step 9: Trang Hồ sơ Cá nhân
+- ✅ Tạo trang hồ sơ cá nhân trong `src/app/people/[id]/page.tsx`
+  - Thông tin hồ sơ đầy đủ
+  - Hình đại diện/biểu tượng mặc định
+  - Thông tin cơ bản (tuổi, ngày sinh, nơi sinh)
+  - Phần tiểu sử
+  - Thanh bên mối quan hệ gia đình (cha mẹ, vợ/chồng, con cái)
+  - Liên kết đến hồ sơ liên quan
 
-### Step 10: Admin/Management Page
-- ✅ Created admin page in `src/app/admin/page.tsx`
-  - Form to add new family members
-  - Form to edit existing members
-  - List of all members with edit/delete buttons
-  - Form fields:
-    - Full name (required)
-    - Gender (required)
-    - Birth date (required)
-    - Death date (optional)
-    - Birth place (optional)
-    - Biography (optional)
-    - Father (optional dropdown)
-    - Mother (optional dropdown)
-  - Validation with Zod and React Hook Form
+### Step 10: Trang Quản trị/Quản lý
+- ✅ Tạo trang quản trị trong `src/app/admin/page.tsx`
+  - Biểu mẫu để thêm thành viên gia đình mới
+  - Biểu mẫu để chỉnh sửa thành viên hiện có
+  - Danh sách tất cả thành viên với nút chỉnh sửa/xóa
+  - Các trường biểu mẫu:
+    - Tên đầy đủ (bắt buộc)
+    - Giới tính (bắt buộc)
+    - Ngày sinh (bắt buộc)
+    - Ngày mất (tùy chọn)
+    - Nơi sinh (tùy chọn)
+    - Tiểu sử (tùy chọn)
+    - Cha (danh sách thả xuống tùy chọn)
+    - Mẹ (danh sách thả xuống tùy chọn)
+  - Xác thực với Zod và React Hook Form
 
-### Step 11: Styling & CSS
-- ✅ Updated globals.css with:
-  - Tailwind imports
-  - React Flow styles
-  - Custom scrollbar styling
-  - Smooth transitions
-  - Accessibility settings
+### Step 11: Kiểu dáng & CSS
+- ✅ Cập nhật globals.css với:
+  - Nhập Tailwind
+  - Kiểu dáng React Flow
+  - Kiểu dáng thanh cuộn tùy chỉnh
+  - Chuyển đổi mượt mà
+  - Cài đặt khả năng tiếp cận
 
-## 📁 Files Created
+## 📁 Các tệp đã tạo
 
-### Routes (Pages)
+### Tuyến đường (Trang)
 ```
 src/app/
-├── page.tsx                    # Home page
-├── layout.tsx                  # Root layout with header
-├── tree/page.tsx              # Family tree visualization
-├── search/page.tsx            # Search functionality
-├── people/[id]/page.tsx       # Individual person profile
-└── admin/page.tsx             # Admin management panel
+├── page.tsx                    # Trang chủ
+├── layout.tsx                  # Bố cục gốc với tiêu đề
+├── tree/page.tsx              # Trực quan hóa cây gia phả
+├── search/page.tsx            # Chức năng tìm kiếm
+├── people/[id]/page.tsx       # Hồ sơ cá nhân
+└── admin/page.tsx             # Bảng điều khiển quản lý quản trị
 ```
 
-### Components
+### Thành phần
 ```
 src/components/
-├── Header.tsx                 # Navigation header
-└── FamilyTreeNode.tsx        # Tree node display component
+├── Header.tsx                 # Tiêu đề điều hướng
+└── FamilyTreeNode.tsx        # Thành phần hiển thị nút cây
 ```
 
-### Features
+### Tính năng
 ```
 src/features/
 ├── family-tree/
-│   └── PersonDetailPanel.tsx  # Right panel in tree view
-├── person/                    # Person-specific components
-├── search/                    # Search feature components
-└── admin/                     # Admin feature components
+│   └── PersonDetailPanel.tsx  # Bảng bên phải trong chế độ xem cây
+├── person/                    # Các thành phần dành riêng cho cá nhân
+├── search/                    # Các thành phần tính năng tìm kiếm
+└── admin/                     # Các thành phần tính năng quản trị
 ```
 
-### Types & Data
+### Các loại & Dữ liệu
 ```
 src/
-├── types/index.ts            # TypeScript interfaces
-├── data/mock-family.ts       # Mock family data (12 members)
-└── lib/family-utils.ts       # Utility functions
+├── types/index.ts            # Giao diện TypeScript
+├── data/mock-family.ts       # Dữ liệu gia đình mẫu (12 thành viên)
+└── lib/family-utils.ts       # Các hàm tiện ích
 ```
 
-### Configuration
+### Cấu hình
 ```
-Package Dependencies:
+Các phụ thuộc gói:
 - next@16.1.7
 - react@19.2.3
 - react-dom@19.2.3
@@ -155,65 +155,65 @@ Package Dependencies:
 - lucide-react
 ```
 
-## 🎯 Routes Summary
+## 🎯 Tóm tắt Tuyến đường
 
-| Route | Component | Features |
+| Tuyến đường | Thành phần | Tính năng |
 |-------|-----------|----------|
-| `/` | Home | Hero, features, CTAs |
-| `/tree` | Family Tree | React Flow, visualization, detail panel |
-| `/search` | Search | Real-time search, results |
-| `/people/[id]` | Profile | Full person info, family relations |
-| `/admin` | Management | Forms to add/edit members |
+| `/` | Trang chủ | Anh hùng, tính năng, CTAs |
+| `/tree` | Cây gia phả | React Flow, trực quan hóa, bảng chi tiết |
+| `/search` | Tìm kiếm | Tìm kiếm thời gian thực, kết quả |
+| `/people/[id]` | Hồ sơ | Thông tin người đầy đủ, quan hệ gia đình |
+| `/admin` | Quản lý | Biểu mẫu để thêm/chỉnh sửa thành viên |
 
-## 📊 Mock Data Overview
+## 📊 Tổng quan Dữ liệu Mẫu
 
-**12 Family Members** across 3 generations:
-- Grandparents: Nguyễn Văn Anh & Trần Thị Bình
-- Parents: Nguyễn Văn Chính & Lê Thị Dung, Nguyễn Văn Em & Phạm Thị Hương
-- Children: Nguyễn Thị Lan, Nguyễn Văn Linh, Nguyễn Thị Kiều, Nguyễn Thị Mỹ, Nguyễn Văn Nam, Trương Thanh Hùng
+**12 Thành viên gia đình** qua 3 thế hệ:
+- Ông bà: Nguyễn Văn Anh & Trần Thị Bình
+- Cha mẹ: Nguyễn Văn Chính & Lê Thị Dung, Nguyễn Văn Em & Phạm Thị Hương
+- Con cháu: Nguyễn Thị Lan, Nguyễn Văn Linh, Nguyễn Thị Kiều, Nguyễn Thị Mỹ, Nguyễn Văn Nam, Trương Thanh Hùng
 
-## 🎨 Design Features
+## 🎨 Các tính năng thiết kế
 
-✅ **Responsive Design**
-- Mobile-first approach
-- Works on all screen sizes (320px - 4K)
-- Tailwind CSS responsive classes
+✅ **Thiết kế Đáp ứng**
+- Cách tiếp cận Mobile-first
+- Hoạt động trên tất cả kích thước màn hình (320px - 4K)
+- Các lớp phản ứng Tailwind CSS
 
-✅ **Color Scheme**
-- Primary: Amber (#d97706)
-- Secondary: Slate/Gray
-- Light background: #f8fafc
-- Clean, professional appearance
+✅ **Lược đồ Màu**
+- Chính: Amber (#d97706)
+- Phụ: Slate/Gray
+- Nền sáng: #f8fafc
+- Giao diện sạch sẽ, chuyên nghiệp
 
-✅ **Typography**
-- Clear hierarchy
-- Readable font sizes
-- Vietnamese language support
+✅ **Kiểu chữ**
+- Hệ thống rõ ràng
+- Kích thước phông chữ dễ đọc
+- Hỗ trợ ngôn ngữ Việt Nam
 
-✅ **Accessibility**
-- Semantic HTML
-- ARIA labels where needed
-- Keyboard navigation support
-- Reduced motion support
+✅ **Khả năng tiếp cận**
+- HTML ngữ nghĩa
+- Nhãn ARIA khi cần thiết
+- Hỗ trợ điều hướng bàn phím
+- Hỗ trợ chuyển động giảm
 
-## 🏗️ Build Status
+## 🏗️ Trạng thái Xây dựng
 
-✅ **TypeScript**: Compiled successfully
-✅ **Build**: Production build successful (Turbopack)
-✅ **Routes Generated**: 6 routes (1 dynamic)
-- ○ (Static): /, /_not-found, /admin, /search, /tree
-- ƒ (Dynamic): /people/[id]
+✅ **TypeScript**: Biên dịch thành công
+✅ **Build**: Xây dựng sản xuất thành công (Turbopack)
+✅ **Tuyến đường được tạo**: 6 tuyến đường (1 động)
+- ○ (Tĩnh): /, /_not-found, /admin, /search, /tree
+- ƒ (Động): /people/[id]
 
-## 🚀 How to Run
+## 🚀 Cách chạy
 
-### Development
+### Phát triển
 ```bash
 cd d:\HTML\familytree-app
 npm run dev
-# Open http://localhost:3000
+# Mở http://localhost:3000
 ```
 
-### Production Build
+### Xây dựng sản xuất
 ```bash
 npm run build
 npm run start
@@ -224,71 +224,71 @@ npm run start
 npm run lint
 ```
 
-## 📋 Next Steps / Future Work
+## 📋 Các bước tiếp theo / Công việc trong tương lai
 
-### High Priority
-1. Backend API integration
-2. Database setup (PostgreSQL recommended)
-3. User authentication & authorization
-4. Image upload for avatars
+### Ưu tiên Cao
+1. Tích hợp API Backend
+2. Thiết lập cơ sở dữ liệu (PostgreSQL được khuyến nghị)
+3. Xác thực & Phóng quyền người dùng
+4. Tải lên hình ảnh cho hình đại diện
 
-### Medium Priority
-1. Advanced filtering/sorting on search
-2. PDF export functionality
-3. Dark mode support
-4. Unit tests & E2E tests
+### Ưu tiên Vừa phải
+1. Lọc/sắp xếp nâng cao trong tìm kiếm
+2. Chức năng xuất PDF
+3. Hỗ trợ chế độ tối
+4. Bài kiểm tra đơn vị & Bài kiểm tra E2E
 
-### Low Priority
-1. Multi-language support
-2. Timeline/historical view
-3. Photo gallery
-4. Family statistics dashboard
-5. Activity feed/change tracking
+### Ưu tiên Thấp
+1. Hỗ trợ đa ngôn ngữ
+2. Chế độ xem theo dòng thời gian/lịch sử
+3. Thư viện ảnh
+4. Bảng điều khiển thống kê gia đình
+5. Nguồn cấp hoạt động/theo dõi thay đổi
 
-## 🔍 Key Implementation Details
+## 🔍 Chi tiết triển khai chính
 
-### Form Validation
-Uses Zod for runtime type checking and React Hook Form for state management:
-- Real-time validation
-- Clear error messages
-- Optional field support
+### Xác thực Biểu mẫu
+Sử dụng Zod để kiểm tra loại thời gian chạy và React Hook Form để quản lý trạng thái:
+- Xác thực thời gian thực
+- Thông báo lỗi rõ ràng
+- Hỗ trợ trường tùy chọn
 
-### Family Tree Visualization
-React Flow provides:
-- Interactive canvas
-- Zoom/pan controls
-- MiniMap for navigation
-- Connected parent-child relationships
-- Color-coded connections (father=slate, mother=pink)
+### Trực quan hóa Cây gia phả
+React Flow cung cấp:
+- Canvas tương tác
+- Điều khiển thu phóng/di chuyển
+- MiniMap để điều hướng
+- Mối quan hệ cha-con được kết nối
+- Kết nối được mã hóa màu (cha=slate, mẹ=hồng)
 
-### State Management
+### Quản lý Trạng thái
 - React hooks (useState, useCallback, useMemo)
-- Component-level state
-- No external state management yet (Redux/Zustand can be added)
+- Trạng thái cấp thành phần
+- Chưa có quản lý trạng thái bên ngoài (Redux/Zustand có thể được thêm)
 
-### Data Flow
-- Mock data → Components → UI
-- Can be replaced with API calls
-- Utility functions for calculations
+### Luồng Dữ liệu
+- Dữ liệu mẫu → Thành phần → Giao diện người dùng
+- Có thể được thay thế bằng lệnh gọi API
+- Các hàm tiện ích để tính toán
 
-## 📝 Notes
+## 📝 Ghi chú
 
-- All components are "use client" compatible
-- TypeScript strict mode enabled
-- ESLint configured for code quality
-- Git repository initialized
-- Ready for version control
+- Tất cả các thành phần tương thích "use client"
+- Chế độ TypeScript strict được bật
+- ESLint được cấu hình cho chất lượng mã
+- Kho lưu trữ Git được khởi tạo
+- Sẵn sàng cho kiểm soát phiên bản
 
-## 🎓 Learning Resources Used
+## 🎓 Tài nguyên học tập được sử dụng
 
-- Next.js App Router documentation
-- React Flow official documentation
-- Tailwind CSS utility-first CSS framework
-- React Hook Form best practices
-- Zod runtime type validation
+- Tài liệu Next.js App Router
+- Tài liệu chính thức React Flow
+- Khung CSS Tailwind CSS utility-first
+- Các phương pháp hay nhất của React Hook Form
+- Xác thực loại Zod thời gian chạy
 
 ---
 
-**Project Status**: MVP Complete ✅
-**Last Updated**: March 17, 2026
-**Version**: 0.1.0
+**Trạng thái Dự án**: MVP Hoàn tất ✅
+**Cập nhật cuối cùng**: 17 Tháng Ba, 2026
+**Phiên bản**: 0.1.0

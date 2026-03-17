@@ -18,7 +18,7 @@ export default function PersonDetailPanel({
   const age = calculateAge(person.birthDate, person.deathDate);
   const isDead = !!person.deathDate;
 
-  // Get family members
+  // Lấy thành viên gia đình
   const father = person.fatherId ? peopleMap.get(person.fatherId) : null;
   const mother = person.motherId ? peopleMap.get(person.motherId) : null;
   const spouses = person.spouseIds.map(id => peopleMap.get(id)).filter(Boolean) as Person[];

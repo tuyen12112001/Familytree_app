@@ -4,8 +4,8 @@ export interface Person {
   id: string;
   fullName: string;
   gender: Gender;
-  birthDate: string; // YYYY-MM-DD
-  deathDate?: string; // YYYY-MM-DD
+  birthDate: string; // Năm-Tháng-Ngày
+  deathDate?: string; // Năm-Tháng-Ngày
   birthPlace?: string;
   biography?: string;
   avatarUrl?: string;

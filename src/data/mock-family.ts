@@ -1,8 +1,8 @@
 import { Person } from '@/types';
 
-// Mock data for a sample Vietnamese family
+// Dữ liệu mẫu cho một gia đình Việt Nam
 export const mockPeople: Person[] = [
-  // Grandparents generation
+  // Thế hệ ông bà
   {
     id: 'p1',
     fullName: 'Nguyễn Văn Anh',
@@ -36,7 +36,7 @@ export const mockPeople: Person[] = [
     updatedAt: '2025-01-01T00:00:00Z',
   },
 
-  // Parents generation
+  // Thế hệ cha mẹ
   {
     id: 'p5',
     fullName: 'Nguyễn Văn Chính',
@@ -102,7 +102,7 @@ export const mockPeople: Person[] = [
     updatedAt: '2025-01-01T00:00:00Z',
   },
 
-  // Current generation children
+  // Thế hệ con cháu hiện tại
   {
     id: 'p7',
     fullName: 'Nguyễn Thị Lan',
