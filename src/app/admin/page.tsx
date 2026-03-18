@@ -59,8 +59,8 @@ export default function AdminPage() {
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Quản Trị Gia Đình</h1>
-          <p className="text-slate-600 mt-1">Quản lý thông tin thành viên gia đình</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Quản Trị Gia Đình</h1>
+          <p className="text-slate-600 dark:text-slate-300 mt-1">Quản lý thông tin thành viên gia đình</p>
         </div>
         <button
           onClick={handleNew}
