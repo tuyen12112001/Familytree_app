@@ -13,18 +13,18 @@ export default function Home() {
             <Trees className="w-16 h-16 mx-auto text-amber-600" />
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
-            Cây Gia Phả Nguyễn
+            Gia phả dòng họ Nguyễn Văn
           </h1>
           <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-8">
-            Khám phá lịch sử dòng họ, kết nối với gia đình, và giữ gìn những kỉ niệm quý báu
+            Nơi tra cứu thông tin và tìm hiểu thêm về dòng họ nhà mình
           </p>
         </div>
 
         {/* About Section */}
         <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-8 mb-12 max-w-3xl mx-auto">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-4">Về Dòng Họ Nguyễn</h2>
+          <h2 className="text-2xl font-semibold text-slate-900 mb-4">Về dòng họ Nguyễn Văn</h2>
           <p className="text-slate-600 leading-relaxed mb-4">
-            Dòng họ Nguyễn là một trong những dòng họ lâu đời và rộng lớn tại Việt Nam. Website này được 
+            Dòng họ Nguyễn Văn là một trong những dòng họ lâu đời và rộng lớn tại Việt Nam. Website này được 
             tạo ra để giúp các thành viên trong gia đình có thể xem, tìm kiếm và quản lý thông tin về 
             các thành viên trong dòng họ một cách dễ dàng và hiệu quả.
           </p>
@@ -45,7 +45,7 @@ export default function Home() {
               Cây Gia Phả
             </h3>
             <p className="text-slate-600 text-sm mb-4">
-              Xem cây gia phả tương tác với các thành viên được sắp xếp theo thế hệ
+              Sơ đồ gia phả chi tiết về tổ tiên và con cháu trong dòng họ Nguyễn Văn
             </p>
             <Link
               href="/tree"
@@ -64,7 +64,7 @@ export default function Home() {
               Tìm Kiếm
             </h3>
             <p className="text-slate-600 text-sm mb-4">
-              Tìm kiếm thành viên trong gia đình theo tên hoặc thông tin khác
+              Tìm kiếm thành viên trong dòng họ <span className="font-semibold">Nguyễn Văn</span> theo tên hoặc thông tin khác
             </p>
             <Link
               href="/search"
@@ -80,10 +80,10 @@ export default function Home() {
               <Users className="w-6 h-6 text-green-600" />
             </div>
             <h3 className="text-lg font-semibold text-slate-900 mb-2">
-              Quản Lý Gia Đình
+              Quản Lý thành viên
             </h3>
             <p className="text-slate-600 text-sm mb-4">
-              Thêm, chỉnh sửa thông tin thành viên và tạo quan hệ gia đình
+              Thêm, chỉnh sửa thông tin về các thành viên trong dòng họ Nguyễn Văn để cập nhật dữ liệu mới nhất
             </p>
             <Link
               href="/admin"

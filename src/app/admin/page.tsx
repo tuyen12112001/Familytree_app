@@ -1,11 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Plus, Edit2, Trash2 } from 'lucide-react';
+import { Plus, Edit2, Trash2, Lock } from 'lucide-react';
 import { mockPeople } from '@/data/mock-family';
+
+const ADMIN_PASSWORD = 'donghoNguyenVan';
+const ADMIN_ACCESS_KEY = 'familytree-admin-access';
+const ADMIN_ACCESS_EVENT = 'familytree-admin-access-change';
+
+const subscribeToAdminAccess = (callback: () => void) => {
+  if (typeof window === 'undefined') {
+    return () => undefined;
+  }
+
+  const handleChange = () => callback();
+
+  window.addEventListener('storage', handleChange);
+  window.addEventListener(ADMIN_ACCESS_EVENT, handleChange);
+
+  return () => {
+    window.removeEventListener('storage', handleChange);
+    window.removeEventListener(ADMIN_ACCESS_EVENT, handleChange);
+  };
+};
+
+const getAdminAccessSnapshot = () => {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  return window.sessionStorage.getItem(ADMIN_ACCESS_KEY) === 'granted';
+};
 
 // Lược đồ xác thực Zod
 const personFormSchema = z.object({
@@ -22,6 +50,13 @@ const personFormSchema = z.object({
 type PersonFormData = z.infer<typeof personFormSchema>;
 
 export default function AdminPage() {
+  const isAuthorized = useSyncExternalStore(
+    subscribeToAdminAccess,
+    getAdminAccessSnapshot,
+    () => false
+  );
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -53,6 +88,70 @@ export default function AdminPage() {
     setEditingId(null);
     setShowForm(true);
   };
+
+  const handlePasswordSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (password === ADMIN_PASSWORD) {
+      window.sessionStorage.setItem(ADMIN_ACCESS_KEY, 'granted');
+      window.dispatchEvent(new Event(ADMIN_ACCESS_EVENT));
+      setPassword('');
+      setPasswordError('');
+      return;
+    }
+
+    setPasswordError('Mật khẩu không đúng. Vui lòng thử lại.');
+  };
+
+  if (!isAuthorized) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mx-auto max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-amber-100 text-amber-600">
+              <Lock className="h-5 w-5" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Khu vực quản lý</h1>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                Nhập mật khẩu để chỉnh sửa thông tin thành viên gia đình.
+              </p>
+            </div>
+          </div>
+
+          <form onSubmit={handlePasswordSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="admin-password" className="mb-1 block text-sm font-semibold text-slate-900 dark:text-white">
+                Mật khẩu
+              </label>
+              <input
+                id="admin-password"
+                type="password"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                  if (passwordError) {
+                    setPasswordError('');
+                  }
+                }}
+                placeholder="Nhập mật khẩu quản trị"
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:placeholder:text-slate-500"
+              />
+            </div>
+
+            {passwordError && <p className="text-sm text-red-500">{passwordError}</p>}
+
+            <button
+              type="submit"
+              className="w-full rounded-lg bg-amber-600 px-4 py-2 font-medium text-white transition-colors hover:bg-amber-700"
+            >
+              Mở phần quản lý
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
