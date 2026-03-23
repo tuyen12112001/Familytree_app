@@ -37,7 +37,7 @@ export default function Home() {
         {/* Features Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {/* Feature 1 */}
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+          <div className="flex h-full flex-col bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4">
               <Trees className="w-6 h-6 text-amber-600" />
             </div>
@@ -45,18 +45,18 @@ export default function Home() {
               Cây Gia Phả
             </h3>
             <p className="text-slate-600 text-sm mb-4">
-              Sơ đồ gia phả chi tiết về tổ tiên và con cháu trong dòng họ Nguyễn Văn
+              Sơ đồ gia phả chi tiết về tổ tiên và con cháu trong dòng họ <span className="font-semibold">Nguyễn Văn</span>
             </p>
             <Link
               href="/tree"
-              className="text-amber-600 font-medium text-sm hover:text-amber-700"
+              className="mt-auto text-amber-600 font-medium text-xl hover:text-amber-700"
             >
               Xem cây gia phả →
             </Link>
           </div>
 
           {/* Feature 2 */}
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+          <div className="flex h-full flex-col bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
               <Search className="w-6 h-6 text-blue-600" />
             </div>
@@ -68,14 +68,14 @@ export default function Home() {
             </p>
             <Link
               href="/search"
-              className="text-blue-600 font-medium text-sm hover:text-blue-700"
+              className="mt-auto text-blue-600 font-medium text-xl hover:text-blue-700"
             >
               Tìm kiếm ngay →
             </Link>
           </div>
 
           {/* Feature 3 */}
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+          <div className="flex h-full flex-col bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
               <Users className="w-6 h-6 text-green-600" />
             </div>
@@ -83,11 +83,11 @@ export default function Home() {
               Quản Lý thành viên
             </h3>
             <p className="text-slate-600 text-sm mb-4">
-              Thêm, chỉnh sửa thông tin về các thành viên trong dòng họ Nguyễn Văn để cập nhật dữ liệu mới nhất
+              Thêm, chỉnh sửa thông tin về các thành viên trong dòng họ <span className="font-semibold">Nguyễn Văn</span> để cập nhật dữ liệu mới nhất
             </p>
             <Link
               href="/admin"
-              className="text-green-600 font-medium text-sm hover:text-green-700"
+              className="mt-auto text-green-600 font-medium text-xl hover:text-green-700"
             >
               Quản lý thông tin →
             </Link>
@@ -95,7 +95,7 @@ export default function Home() {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/tree"
             className="px-8 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 transition-colors text-center"
@@ -108,7 +108,7 @@ export default function Home() {
           >
             Tìm Kiếm Thành Viên
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );
