@@ -3,7 +3,8 @@
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { User, ArrowLeft } from 'lucide-react';
-import { mockPeople } from '@/data/mock-family';
+import { useEffect, useState } from 'react';
+import { Person } from '@/types';
 import { formatDate, calculateAge, getGenderDisplay } from '@/lib/family-utils';
 
 export default function PersonPage() {
@@ -11,10 +12,43 @@ export default function PersonPage() {
   const router = useRouter();
   const personId = params.id as string;
 
-  const person = mockPeople.find(p => p.id === personId);
-  const peopleMap = new Map(mockPeople.map(p => [p.id, p]));
+  const [person, setPerson] = useState<Person | null>(null);
+  const [allPeople, setAllPeople] = useState<Person[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
-  if (!person) {
+  useEffect(() => {
+    // Fetch toàn bộ danh sách và tìm người theo ID
+    fetch('/api/people')
+      .then(res => res.json())
+      .then((data: Person[]) => {
+        setAllPeople(data);
+        const found = data.find(p => p.id === personId);
+        if (found) {
+          setPerson(found);
+        } else {
+          setNotFound(true);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Lỗi khi tải dữ liệu:', err);
+        setNotFound(true);
+        setLoading(false);
+      });
+  }, [personId]);
+
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center py-16">
+          <p className="text-xl text-slate-400">Đang tải...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (notFound || !person) {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <button
@@ -31,12 +65,13 @@ export default function PersonPage() {
     );
   }
 
+  const peopleMap = new Map(allPeople.map(p => [p.id, p]));
   const age = calculateAge(person.birthDate, person.deathDate);
-  const isDead = !!person.deathDate;
+  const isDead = !!person.deathDate && person.deathDate !== "Còn sống";
   const father = person.fatherId ? peopleMap.get(person.fatherId) : null;
   const mother = person.motherId ? peopleMap.get(person.motherId) : null;
-  const spouses = person.spouseIds.map(id => peopleMap.get(id)).filter(Boolean) as any[];
-  const children = person.childIds.map(id => peopleMap.get(id)).filter(Boolean) as any[];
+  const spouses = person.spouseIds.map(id => peopleMap.get(id)).filter(Boolean) as Person[];
+  const children = person.childIds.map(id => peopleMap.get(id)).filter(Boolean) as Person[];
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -56,20 +91,28 @@ export default function PersonPage() {
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-8">
             {/* Name and Basic Info */}
             <div className="flex items-start space-x-6 mb-8">
-              <div className="w-32 h-32 rounded-lg bg-gradient-to-br from-amber-200 to-amber-300 flex items-center justify-center flex-shrink-0">
-                <User className="w-16 h-16 text-amber-700" />
+              <div className="w-32 h-32 rounded-lg bg-gradient-to-br from-amber-200 to-amber-300 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                {person.avatarUrl ? (
+                  <img
+                    src={person.avatarUrl}
+                    alt={person.fullName}
+                    className="w-32 h-32 object-cover rounded-lg"
+                  />
+                ) : (
+                  <User className="w-16 h-16 text-amber-700" />
+                )}
               </div>
               <div className="flex-1">
                 <h1 className="text-4xl font-bold text-slate-900">{person.fullName}</h1>
                 <div className="flex items-center space-x-4 mt-2">
                   <span className="text-lg text-slate-600">{getGenderDisplay(person.gender)}</span>
                   <span className="text-lg text-slate-600">•</span>
-                  <span className="text-lg text-slate-600">{age} tuổi</span>
+                  <span className="text-lg text-slate-600">{age !== null ? `${age} tuổi` : 'Không rõ tuổi'}</span>
                 </div>
                 {isDead && (
                   <div className="mt-4 p-3 bg-slate-100 border border-slate-300 rounded">
                     <p className="text-sm font-medium text-slate-700">
-                      Đã mất ngày {formatDate(person.deathDate!)}
+                      Đã mất: {formatDate(person.deathDate!)}
                     </p>
                   </div>
                 )}
@@ -90,10 +133,12 @@ export default function PersonPage() {
                     <dd className="text-slate-900 font-medium text-lg mt-1">{person.birthPlace}</dd>
                   </div>
                 )}
-                {person.deathDate && (
+                {isDead && (
                   <div>
                     <dt className="text-sm font-semibold text-slate-500 uppercase">Ngày Mất</dt>
-                    <dd className="text-slate-900 font-medium text-lg mt-1">{formatDate(person.deathDate)}</dd>
+                    <dd className="text-slate-900 font-medium text-lg mt-1">
+                      {formatDate(person.deathDate)}
+                    </dd>
                   </div>
                 )}
               </dl>

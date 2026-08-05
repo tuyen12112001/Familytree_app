@@ -3,8 +3,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactFlow, {
   Background,
+  BaseEdge,
   Controls,
   Edge,
+  EdgeProps,
+  EdgeTypes,
   Handle,
   MarkerType,
   MiniMap,
@@ -19,7 +22,6 @@ import 'reactflow/dist/style.css';
 import { User } from 'lucide-react';
 
 import PersonDetailPanel from '@/features/family-tree/PersonDetailPanel';
-import { mockPeople } from '@/data/mock-family';
 import { getYearOnly } from '@/lib/family-utils';
 import { Person } from '@/types';
 
@@ -91,8 +93,9 @@ function AncestralPlaque() {
 function CustomPersonNode({ data }: { data: { person: Person; isSelected: boolean } }) {
   const { person, isSelected } = data;
   const birthYear = getYearOnly(person.birthDate);
-  const deathYear = person.deathDate ? getYearOnly(person.deathDate) : null;
+  const deathYear = person.deathDate && person.deathDate !== "Còn sống" ? getYearOnly(person.deathDate) || null : null;
   const yearRange = deathYear ? `${birthYear} - ${deathYear}` : `b. ${birthYear}`;
+  const spouseHandlePosition = person.gender === 'male' ? Position.Right : Position.Left;
 
   return (
     <div
@@ -103,25 +106,56 @@ function CustomPersonNode({ data }: { data: { person: Person; isSelected: boolea
       }`}
     >
       <Handle
+        id='target'
         type="target"
         position={Position.Top}
         className="!h-3 !w-3 !border-2 !border-amber-700 !bg-amber-50"
       />
 
-      <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 to-amber-300">
-        <User className="h-5 w-5 text-amber-700" />
+      <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 to-amber-300 overflow-hidden">
+        {person.avatarUrl ? (
+          <img
+            src={person.avatarUrl}
+            alt={person.fullName}
+            className="h-10 w-10 rounded-full object-cover"
+          />
+        ) : (
+          <User className="h-5 w-5 text-amber-700" />
+        )}
       </div>
 
       <p className="text-xs font-semibold leading-tight text-slate-900">{person.fullName}</p>
       <p className="mt-1 text-xs text-slate-500">{yearRange}</p>
 
       <Handle
+        id="spouse-target"
+        type="target"
+        position={spouseHandlePosition}
+        className="!h-3 !w-3 !border-2 !border-amber-700 !bg-amber-50"
+      />
+
+      <Handle
+        id="spouse-source"
+        type="source"
+        position={spouseHandlePosition}
+        className="!h-3 !w-3 !border-2 !border-amber-700 !bg-amber-50"
+      />
+
+      <Handle
+        id="source"
         type="source"
         position={Position.Bottom}
         className="!h-3 !w-3 !border-2 !border-amber-700 !bg-amber-50"
       />
     </div>
   );
+}
+
+// Edge kiểu org-chart: thẳng dọc xuống từ cha → ngang → thẳng dọc xuống con
+function OrgChartEdge({ id, sourceX, sourceY, targetX, targetY, style, markerEnd }: EdgeProps) {
+  const midY = (sourceY + targetY) / 2;
+  const edgePath = `M ${sourceX} ${sourceY} L ${sourceX} ${midY} L ${targetX} ${midY} L ${targetX} ${targetY}`;
+  return <BaseEdge id={id} path={edgePath} style={style} markerEnd={markerEnd} />;
 }
 
 function getGenerationLevels(peopleMap: Map<string, Person>) {
@@ -152,7 +186,7 @@ function getGenerationLevels(peopleMap: Map<string, Person>) {
     return level;
   }
 
-  mockPeople.forEach((person) => {
+  [...peopleMap.values()].forEach((person) => {
     resolveGeneration(person.id);
   });
 
@@ -160,7 +194,7 @@ function getGenerationLevels(peopleMap: Map<string, Person>) {
   while (changed) {
     changed = false;
 
-    mockPeople.forEach((person) => {
+    [...peopleMap.values()].forEach((person) => {
       const ownLevel = generationById.get(person.id) ?? 0;
 
       person.spouseIds.forEach((spouseId) => {
@@ -183,41 +217,192 @@ function getGenerationLevels(peopleMap: Map<string, Person>) {
   return generationById;
 }
 
+const NODE_W = 220;  // khoảng cách tối thiểu giữa 2 node
+const GEN_H = 200;   // khoảng cách dọc giữa các thế hệ
+
 function calculateNodePositions(peopleMap: Map<string, Person>) {
   const positions = new Map<string, { x: number; y: number }>();
-  const peopleByGeneration = new Map<number, Person[]>();
   const generationById = getGenerationLevels(peopleMap);
 
-  mockPeople.forEach((person) => {
-    const generation = generationById.get(person.id) ?? 0;
-    const existingPeople = peopleByGeneration.get(generation) ?? [];
-    existingPeople.push(person);
-    peopleByGeneration.set(generation, existingPeople);
+  // Nhóm người theo thế hệ
+  const peopleByGeneration = new Map<number, Person[]>();
+  [...peopleMap.values()].forEach((person) => {
+    const gen = generationById.get(person.id) ?? 0;
+    const arr = peopleByGeneration.get(gen) ?? [];
+    arr.push(person);
+    peopleByGeneration.set(gen, arr);
   });
 
   const orderedGenerations = [...peopleByGeneration.keys()].sort((a, b) => a - b);
-  const maxGeneration = orderedGenerations.length > 0 ? Math.max(...orderedGenerations) : 0;
+
+  // Tạo nhóm vợ/chồng trong cùng thế hệ
+  const buildSpouseGroups = (people: Person[]): Person[][] => {
+    const peopleIds = new Set(people.map(p => p.id));
+    const visited = new Set<string>();
+    const groups: Person[][] = [];
+    const collect = (person: Person, group: Person[]) => {
+      if (visited.has(person.id)) return;
+      visited.add(person.id);
+      group.push(person);
+      person.spouseIds.forEach(sid => {
+        if (peopleIds.has(sid)) {
+          const s = peopleMap.get(sid);
+          if (s) collect(s, group);
+        }
+      });
+    };
+    people.forEach(person => {
+      if (visited.has(person.id)) return;
+      const group: Person[] = [];
+      collect(person, group);
+      // Trong nhóm: nam trước nữ, cùng giới → theo ngày sinh
+      group.sort((a, b) => {
+        if (a.gender !== b.gender) return a.gender === 'male' ? -1 : 1;
+        return a.birthDate.replace(/[*?]/g, '0').localeCompare(b.birthDate.replace(/[*?]/g, '0'));
+      });
+      groups.push(group);
+    });
+    return groups;
+  };
+
+  // Người "chính" của nhóm = người có cha/mẹ trong cây
+  const getMainPerson = (group: Person[]): Person =>
+    group.find(p => p.fatherId || p.motherId) ?? group[0];
+
+  // Lấy X của cha (các con luôn canh theo cha, không lấy trung điểm cha-mẹ)
+  const getCoupleCenterX = (person: Person): number | null => {
+    const fX = person.fatherId ? positions.get(person.fatherId)?.x : undefined;
+    const mX = person.motherId ? positions.get(person.motherId)?.x : undefined;
+    if (fX !== undefined) return fX; // Luôn dùng vị trí X của cha
+    if (mX !== undefined) return mX; // Fallback: chỉ có mẹ
+    return null;
+  };
 
   orderedGenerations.forEach((generation) => {
-    const people = (peopleByGeneration.get(generation) ?? []).sort((a, b) =>
-      a.birthDate.localeCompare(b.birthDate)
+    const people = peopleByGeneration.get(generation) ?? [];
+    const y = generation * GEN_H;
+    const spouseGroups = buildSpouseGroups(people);
+    if (spouseGroups.length === 0) return;
+
+    // Kiểm tra thế hệ gốc (không ai có cha/mẹ trong cây)
+    const isRoot = spouseGroups.every(g => {
+      const m = getMainPerson(g);
+      return !m.fatherId && !m.motherId;
+    });
+
+    if (isRoot) {
+      // Thế hệ gốc: dàn đều quanh x=0
+      const totalNodes = spouseGroups.reduce((s, g) => s + g.length, 0);
+      const totalWidth = (totalNodes - 1) * NODE_W;
+      let x = -totalWidth / 2;
+      spouseGroups.forEach(group => {
+        group.forEach(person => {
+          positions.set(person.id, { x, y });
+          x += NODE_W;
+        });
+      });
+      return;
+    }
+
+    // Thế hệ có cha/mẹ:
+    // 1. Gom nhóm vợ/chồng theo cha chung (fatherId của người chính)
+    const siblingClusters = new Map<string, Person[][]>(); // parentKey → [spouseGroup,...]
+    const orphanGroups: Person[][] = []; // nhóm không có cha/mẹ trong cây (vợ/chồng từ ngoài vào)
+    spouseGroups.forEach(group => {
+      const main = getMainPerson(group);
+      const pk = main.fatherId ?? main.motherId;
+      if (pk) {
+        const arr = siblingClusters.get(pk) ?? [];
+        arr.push(group);
+        siblingClusters.set(pk, arr);
+      } else {
+        orphanGroups.push(group);
+      }
+    });
+
+    // 2. Sắp xếp trong mỗi cluster theo birthDate của người chính (con trưởng → trái)
+    siblingClusters.forEach(cluster =>
+      cluster.sort((gA, gB) => {
+        const rA = getMainPerson(gA);
+        const rB = getMainPerson(gB);
+        return rA.birthDate.replace(/[*?]/g, '0').localeCompare(rB.birthDate.replace(/[*?]/g, '0'));
+      })
     );
 
-    people.forEach((person, index) => {
-      const x = (index - (people.length - 1) / 2) * 220;
-      const y = (maxGeneration - generation) * 180;
-      positions.set(person.id, { x, y });
+    // 3. Sắp xếp các cluster theo birthDate của cha (nhánh trưởng → trái)
+    const sortedClusterKeys = [...siblingClusters.keys()].sort((pkA, pkB) => {
+      const pA = peopleMap.get(pkA);
+      const pB = peopleMap.get(pkB);
+      if (!pA || !pB) return 0;
+      return pA.birthDate.replace(/[*?]/g, '0').localeCompare(pB.birthDate.replace(/[*?]/g, '0'));
+    });
+
+    // 4. Với mỗi cluster, spread các nhóm đều quanh center của cha/mẹ
+    const groupCenterX = new Map<Person[], number>();
+
+    sortedClusterKeys.forEach(pk => {
+      const cluster = siblingClusters.get(pk)!;
+      // Tính center của cặp cha/mẹ
+      const main = getMainPerson(cluster[0]);
+      const parentCX = getCoupleCenterX(main) ?? 0;
+
+      // Tổng width: mỗi nhóm chiếm (size-1)*NODE_W, giữa các nhóm cách NODE_W
+      const totalW = cluster.reduce((sum, g) => sum + (g.length - 1) * NODE_W, 0)
+        + Math.max(0, cluster.length - 1) * NODE_W;
+      let x = parentCX - totalW / 2;
+      cluster.forEach(group => {
+        const gw = (group.length - 1) * NODE_W;
+        groupCenterX.set(group, x + gw / 2);
+        x += gw + NODE_W;
+      });
+    });
+
+    // Orphan groups: đặt tạm dựa trên vị trí của vợ/chồng đã có
+    orphanGroups.forEach(group => {
+      const main = getMainPerson(group);
+      const existingSpouseGroup = [...siblingClusters.values()].flat()
+        .find(g => g.some(p => main.spouseIds.includes(p.id)));
+      if (existingSpouseGroup) {
+        groupCenterX.set(group, groupCenterX.get(existingSpouseGroup) ?? 0);
+      } else {
+        groupCenterX.set(group, 0);
+      }
+    });
+
+    // 5. Thứ tự hiển thị: cluster1[...] cluster2[...] ... orphans
+    const orderedGroups: Person[][] = [
+      ...sortedClusterKeys.flatMap(pk => siblingClusters.get(pk) ?? []),
+      ...orphanGroups,
+    ];
+
+    // 6. Resolve overlap từ trái sang phải (min gap = NODE_W)
+    const cx: number[] = orderedGroups.map(g => groupCenterX.get(g) ?? 0);
+    for (let i = 1; i < orderedGroups.length; i++) {
+      const prevRight = cx[i - 1] + (orderedGroups[i - 1].length - 1) * NODE_W / 2;
+      const curWidth = (orderedGroups[i].length - 1) * NODE_W;
+      const curLeft = cx[i] - curWidth / 2;
+      if (curLeft < prevRight + NODE_W) {
+        cx[i] = prevRight + NODE_W + curWidth / 2;
+      }
+    }
+
+    // 7. Gán vị trí cuối
+    orderedGroups.forEach((group, gi) => {
+      const startX = cx[gi] - (group.length - 1) * NODE_W / 2;
+      group.forEach((person, pi) => {
+        positions.set(person.id, { x: startX + pi * NODE_W, y });
+      });
     });
   });
 
   return positions;
 }
 
-function createEdges() {
+function createEdges(people: Person[]) {
   const edgeList: Edge[] = [];
   const addedEdgeIds = new Set<string>();
 
-  mockPeople.forEach((person) => {
+  people.forEach((person) => {
     if (person.fatherId) {
       const edgeId = `${person.fatherId}->${person.id}`;
       if (!addedEdgeIds.has(edgeId)) {
@@ -225,28 +410,32 @@ function createEdges() {
           id: edgeId,
           source: person.fatherId,
           target: person.id,
-          type: 'smoothstep',
+          sourceHandle: 'source',
+          targetHandle: 'target',
+          type: 'orgChart',
           style: { stroke: '#64748b', strokeWidth: 2.5 },
-          markerEnd: { type: MarkerType.ArrowClosed, color: '#64748b' },
+          // markerEnd: { type: MarkerType.ArrowClosed, color: '#64748b' },
         });
         addedEdgeIds.add(edgeId);
       }
     }
 
-    if (person.motherId) {
-      const edgeId = `${person.motherId}->${person.id}`;
-      if (!addedEdgeIds.has(edgeId)) {
-        edgeList.push({
-          id: edgeId,
-          source: person.motherId,
-          target: person.id,
-          type: 'smoothstep',
-          style: { stroke: '#db2777', strokeWidth: 2.5 },
-          markerEnd: { type: MarkerType.ArrowClosed, color: '#db2777' },
-        });
-        addedEdgeIds.add(edgeId);
-      }
-    }
+    // if (person.motherId) {
+    //   const edgeId = `${person.motherId}->${person.id}`;
+    //   if (!addedEdgeIds.has(edgeId)) {
+    //     edgeList.push({
+    //       id: edgeId,
+    //       source: person.motherId,
+    //       target: person.id,
+    //       sourceHandle: 'source',
+    //       targetHandle: 'target',
+    //       type: 'smoothstep',
+    //       style: { stroke: '#db2777', strokeWidth: 2.5 },
+    //       markerEnd: { type: MarkerType.ArrowClosed, color: '#db2777' },
+    //     });
+    //     addedEdgeIds.add(edgeId);
+    //   }
+    // }
 
     person.spouseIds.forEach((spouseId) => {
       const edgeId = [person.id, spouseId].sort().join('<->');
@@ -255,6 +444,8 @@ function createEdges() {
           id: edgeId,
           source: person.id,
           target: spouseId,
+          sourceHandle: 'spouse-source',
+          targetHandle: 'spouse-target',
           type: 'straight',
           animated: true,
           style: {
@@ -273,27 +464,43 @@ function createEdges() {
 
 export default function FamilyTreePage() {
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);
+  const [people, setPeople] = useState<Person[]>([]);
+  const [loadingPeople, setLoadingPeople] = useState(true);
+
+  // Fetch dữ liệu từ API
+  useEffect(() => {
+    fetch('/api/people')
+      .then(res => res.json())
+      .then((data: Person[]) => {
+        setPeople(data);
+        setLoadingPeople(false);
+      })
+      .catch(err => {
+        console.error('Lỗi khi tải danh sách:', err);
+        setLoadingPeople(false);
+      });
+  }, []);
 
   const peopleMap = useMemo(() => {
     const map = new Map<string, Person>();
-    mockPeople.forEach((person) => map.set(person.id, person));
+    people.forEach((person) => map.set(person.id, person));
     return map;
-  }, []);
+  }, [people]);
 
   const positions = useMemo(() => calculateNodePositions(peopleMap), [peopleMap]);
 
   const nodes = useMemo<Node[]>(
     () =>
-      mockPeople.map((person) => ({
+      people.map((person) => ({
         id: person.id,
         data: { person, isSelected: selectedPersonId === person.id },
         position: positions.get(person.id) ?? { x: 0, y: 0 },
         type: 'customPerson',
       })),
-    [positions, selectedPersonId]
+    [people, positions, selectedPersonId]
   );
 
-  const edges = useMemo(() => createEdges(), []);
+  const edges = useMemo(() => createEdges(people), [people]);
 
   const [flowNodes, setFlowNodes, onNodesChange] = useNodesState(nodes);
   const [flowEdges, setFlowEdges, onEdgesChange] = useEdgesState(edges);
@@ -313,14 +520,24 @@ export default function FamilyTreePage() {
     []
   );
 
+  const edgeTypes: EdgeTypes = useMemo(() => ({ orgChart: OrgChartEdge }), []);
+
   const handleNodeClick = useCallback<NodeMouseHandler>((_event, node) => {
     setSelectedPersonId(node.id);
   }, []);
 
   const selectedPerson = selectedPersonId ? peopleMap.get(selectedPersonId) : null;
 
+  if (loadingPeople) {
+    return (
+      <div className="flex h-[calc(100vh-4rem)] items-center justify-center bg-[#f6d67a]">
+        <p className="text-amber-800 text-lg font-medium">Đang tải cây gia phả...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="relative flex h-screen overflow-hidden bg-[#f6d67a]">
+    <div className="relative flex h-[calc(100vh-4rem)] overflow-hidden bg-[#f6d67a]">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-[18px] rounded-[28px] border border-amber-700/30 bg-[#f8df95]" />
         <div className="absolute inset-[30px] rounded-[24px] border border-amber-700/35" />
@@ -357,10 +574,11 @@ export default function FamilyTreePage() {
           onEdgesChange={onEdgesChange}
           onNodeClick={handleNodeClick}
           nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
           fitView
           fitViewOptions={{ padding: 0.2 }}
           defaultEdgeOptions={{
-            type: 'smoothstep',
+            type: 'orgChart',
             markerEnd: {
               type: MarkerType.ArrowClosed,
               width: 18,

@@ -1,8 +1,9 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Person } from '@/types';
-import { formatDate, getGenderDisplay, calculateAge, getRelationship } from '@/lib/family-utils';
-import { X } from 'lucide-react';
+import { formatDate, getGenderDisplay, calculateAge } from '@/lib/family-utils';
+import { X, User } from 'lucide-react';
 
 interface PersonDetailPanelProps {
   person: Person;
@@ -15,8 +16,9 @@ export default function PersonDetailPanel({
   peopleMap,
   onClose,
 }: PersonDetailPanelProps) {
+  const router = useRouter();
   const age = calculateAge(person.birthDate, person.deathDate);
-  const isDead = !!person.deathDate;
+  const isDead = !!person.deathDate && person.deathDate !== "Còn sống";
 
   // Lấy thành viên gia đình
   const father = person.fatherId ? peopleMap.get(person.fatherId) : null;
@@ -25,9 +27,9 @@ export default function PersonDetailPanel({
   const children = person.childIds.map(id => peopleMap.get(id)).filter(Boolean) as Person[];
 
   return (
-    <div className="w-80 bg-white border-l border-slate-200 shadow-lg overflow-y-auto h-screen fixed right-0 top-16 z-40">
+    <div className="w-80 bg-white border-l border-slate-200 shadow-lg flex flex-col fixed right-0 top-16 bottom-0 z-40">
       {/* Header */}
-      <div className="sticky top-0 bg-gradient-to-r from-amber-500 to-amber-600 text-white p-4 flex items-center justify-between">
+      <div className="sticky top-0 bg-gradient-to-r from-amber-500 to-amber-600 text-white p-4 flex items-center justify-between flex-shrink-0">
         <h2 className="text-lg font-semibold">Hồ Sơ Cá Nhân</h2>
         <button
           onClick={onClose}
@@ -38,18 +40,29 @@ export default function PersonDetailPanel({
         </button>
       </div>
 
-      {/* Content */}
-      <div className="p-6">
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto p-6">
         {/* Avatar */}
         <div className="text-center mb-6">
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-200 to-amber-300 flex items-center justify-center mx-auto mb-4">
-            <span className="text-4xl text-amber-700">👤</span>
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-200 to-amber-300 flex items-center justify-center mx-auto mb-4 overflow-hidden">
+            {person.avatarUrl ? (
+              <img
+                src={person.avatarUrl}
+                alt={person.fullName}
+                className="w-24 h-24 rounded-full object-cover"
+              />
+            ) : (
+              <User className="w-10 h-10 text-amber-700" />
+            )}
           </div>
 
           {/* Basic Info */}
           <h1 className="text-2xl font-bold text-slate-900">{person.fullName}</h1>
+          <p className="text-xs font-mono text-amber-700 bg-amber-50 border border-amber-200 rounded px-1.5 py-0.5 inline-block mt-1.5">
+            ID: {person.id}
+          </p>
           <p className="text-sm text-slate-500 mt-1">
-            {getGenderDisplay(person.gender)} · {age} tuổi
+            {getGenderDisplay(person.gender)}{age !== null ? ` · ${age} tuổi` : ''}
           </p>
         </div>
 
@@ -57,7 +70,7 @@ export default function PersonDetailPanel({
         {isDead && (
           <div className="bg-slate-100 border border-slate-300 rounded-lg p-3 mb-6 text-center">
             <p className="text-sm font-medium text-slate-700">
-              Đã mất {formatDate(person.deathDate!)}
+              Đã mất: {formatDate(person.deathDate!)}
             </p>
           </div>
         )}
@@ -78,12 +91,17 @@ export default function PersonDetailPanel({
                 <dd className="text-slate-900 font-medium">{person.birthPlace}</dd>
               </div>
             )}
-            {person.deathDate && (
+            {isDead ? (
               <div>
                 <dt className="text-slate-500">Ngày mất</dt>
                 <dd className="text-slate-900 font-medium">{formatDate(person.deathDate)}</dd>
               </div>
-            )}
+            ) : person.deathDate ? (
+              <div>
+                <dt className="text-slate-500">Tình trạng</dt>
+                <dd className="text-slate-900 font-medium">{formatDate(person.deathDate)}</dd>
+              </div>
+            ) : null}
           </dl>
         </div>
 
@@ -125,9 +143,7 @@ export default function PersonDetailPanel({
             {/* Spouses */}
             {spouses.length > 0 && (
               <div>
-                <p className="text-xs font-semibold text-slate-500 mb-1">
-                  {spouses.length === 1 ? 'Vợ/Chồng' : 'Vợ/Chồng'}
-                </p>
+                <p className="text-xs font-semibold text-slate-500 mb-1">Vợ/Chồng</p>
                 <div className="space-y-1">
                   {spouses.map(spouse => (
                     <p key={spouse.id} className="text-sm text-slate-700">
@@ -159,7 +175,10 @@ export default function PersonDetailPanel({
         </div>
 
         {/* View Full Profile Button */}
-        <button className="w-full py-2 px-4 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 transition-colors">
+        <button
+          onClick={() => router.push(`/people/${person.id}`)}
+          className="w-full py-2 px-4 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 transition-colors"
+        >
           Xem Hồ Sơ Đầy Đủ
         </button>
       </div>

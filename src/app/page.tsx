@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Trees, Search, Users } from 'lucide-react';
+import { Trees, Search, Users, BookOpen } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -24,25 +24,46 @@ export default function Home() {
         <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-8 mb-12 max-w-3xl mx-auto">
           <h2 className="text-2xl font-semibold text-slate-900 mb-4">Về dòng họ Nguyễn Văn</h2>
           <p className="text-slate-600 leading-relaxed mb-4">
-            Dòng họ Nguyễn Văn là một trong những dòng họ lâu đời và rộng lớn tại Việt Nam. Website này được 
-            tạo ra để giúp các thành viên trong gia đình có thể xem, tìm kiếm và quản lý thông tin về 
-            các thành viên trong dòng họ một cách dễ dàng và hiệu quả.
+            Dòng họ Nguyễn Văn ta là một trong những dòng họ lớn ở xóm 3, thôn Phong Lôi Tây, xã Đông Hợp, huyện Đông Hưng, tỉnh Thái Bình.
+            Cụ tổ của dòng họ là cụ Nguyễn Tiền di cư từ xã Đông Xá sang ở Phong Lôi và dòng họ phát triển từ đấy. 
           </p>
-          <p className="text-slate-600 leading-relaxed">
-            Bạn có thể xem cây gia phả, tìm kiếm thành viên, xem thông tin chi tiết của từng người, 
-            và thêm thông tin mới vào hệ thống.
+          <p className="text-slate-600 leading-relaxed mb-4">
+            Website này được tạo ra để cho con cháu trong dòng họ có thể xem, tra cứu và tìm hiểu thêm về tổ tiên, dòng họ. 
+            Hơn nữa, đây cũng là nơi để con cháu chúng ta lưu giữ và tưởng nhớ về tổ tiên, dòng họ mình. 
+          </p>
+          <p className="text-slate-600 leading-relaxed text-right italic">
+            Nguyễn Hoàng Tuyến
           </p>
         </div>
 
         {/* Features Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {/* Feature 1 */}
+          <div className="flex h-full flex-col bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center mb-4">
+              <BookOpen className="w-6 h-6 text-amber-700" />
+            </div>
+            <h3 className="text-lg font-semibold text-slate-900 mb-2">
+              Diễn nghĩa gia phả
+            </h3>
+            <p className="text-slate-600 text-sm mb-4">
+              Phần diễn nghĩa được chép lại từ cuốn sổ gia phả dược cụ Nguyễn Văn Nhớ ghi chép và lưu giữ
+            </p>
+            <Link
+              href="/chronicle"
+              className="mt-auto text-amber-700 font-medium text-xl hover:text-amber-800"
+            >
+              Đọc diễn nghĩa →
+            </Link>
+          </div>
+
+          {/* Feature 2 */}
           <div className="flex h-full flex-col bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4">
               <Trees className="w-6 h-6 text-amber-600" />
             </div>
             <h3 className="text-lg font-semibold text-slate-900 mb-2">
-              Cây Gia Phả
+              Cây gia phả
             </h3>
             <p className="text-slate-600 text-sm mb-4">
               Sơ đồ gia phả chi tiết về tổ tiên và con cháu trong dòng họ <span className="font-semibold">Nguyễn Văn</span>
@@ -55,13 +76,13 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Feature 2 */}
+          {/* Feature 3 */}
           <div className="flex h-full flex-col bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
               <Search className="w-6 h-6 text-blue-600" />
             </div>
             <h3 className="text-lg font-semibold text-slate-900 mb-2">
-              Tìm Kiếm
+              Tìm kiếm
             </h3>
             <p className="text-slate-600 text-sm mb-4">
               Tìm kiếm thành viên trong dòng họ <span className="font-semibold">Nguyễn Văn</span> theo tên hoặc thông tin khác
@@ -74,13 +95,13 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Feature 3 */}
+          {/* Feature 4 */}
           <div className="flex h-full flex-col bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
               <Users className="w-6 h-6 text-green-600" />
             </div>
             <h3 className="text-lg font-semibold text-slate-900 mb-2">
-              Quản Lý thành viên
+              Quản lý thành viên
             </h3>
             <p className="text-slate-600 text-sm mb-4">
               Thêm, chỉnh sửa thông tin về các thành viên trong dòng họ <span className="font-semibold">Nguyễn Văn</span> để cập nhật dữ liệu mới nhất

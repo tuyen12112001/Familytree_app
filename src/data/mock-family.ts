@@ -1,205 +1,22 @@
 import { Person } from '@/types';
+import { removeVietnameseAccents } from '@/lib/string-utils';
+import familySeed from './family-seed.json';
 
-// Dữ liệu mẫu cho một gia đình Việt Nam
-export const mockPeople: Person[] = [
-  // Thế hệ ông bà
-  {
-    id: 'p1',
-    fullName: 'Nguyễn Văn Anh',
-    gender: 'male',
-    birthDate: '1940-03-15',
-    deathDate: '2015-07-20',
-    birthPlace: 'Hà Nội',
-    biography: 'Ông ngoại - Người sáng lập dòng họ',
-    avatarUrl: undefined,
-    fatherId: undefined,
-    motherId: undefined,
-    spouseIds: ['p2'],
-    childIds: ['p5', 'p6'],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-  {
-    id: 'p2',
-    fullName: 'Trần Thị Bình',
-    gender: 'female',
-    birthDate: '1945-06-20',
-    deathDate: undefined,
-    birthPlace: 'Hải Phòng',
-    biography: 'Bà ngoại - Vợ của Nguyễn Văn Anh',
-    avatarUrl: undefined,
-    fatherId: undefined,
-    motherId: undefined,
-    spouseIds: ['p1'],
-    childIds: ['p5', 'p6'],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-
-  // Thế hệ cha mẹ
-  {
-    id: 'p5',
-    fullName: 'Nguyễn Văn Chính',
-    gender: 'male',
-    birthDate: '1965-05-10',
-    deathDate: undefined,
-    birthPlace: 'Hà Nội',
-    biography: 'Cha của các con',
-    avatarUrl: undefined,
-    fatherId: 'p1',
-    motherId: 'p2',
-    spouseIds: ['p3'],
-    childIds: ['p7', 'p8', 'p9'],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-  {
-    id: 'p3',
-    fullName: 'Lê Thị Dung',
-    gender: 'female',
-    birthDate: '1968-09-25',
-    deathDate: undefined,
-    birthPlace: 'Sài Gòn',
-    biography: 'Mẹ của các con',
-    avatarUrl: undefined,
-    fatherId: undefined,
-    motherId: undefined,
-    spouseIds: ['p5'],
-    childIds: ['p7', 'p8', 'p9'],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-  {
-    id: 'p6',
-    fullName: 'Nguyễn Văn Em',
-    gender: 'male',
-    birthDate: '1970-11-30',
-    deathDate: undefined,
-    birthPlace: 'Hà Nội',
-    biography: 'Chú của các con',
-    avatarUrl: undefined,
-    fatherId: 'p1',
-    motherId: 'p2',
-    spouseIds: ['p4'],
-    childIds: ['p10', 'p11'],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-  {
-    id: 'p4',
-    fullName: 'Phạm Thị Hương',
-    gender: 'female',
-    birthDate: '1973-02-14',
-    deathDate: undefined,
-    birthPlace: 'Đà Nẵng',
-    biography: 'Chị dâu',
-    avatarUrl: undefined,
-    fatherId: undefined,
-    motherId: undefined,
-    spouseIds: ['p6'],
-    childIds: ['p10', 'p11'],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-
-  // Thế hệ con cháu hiện tại
-  {
-    id: 'p7',
-    fullName: 'Nguyễn Thị Lan',
-    gender: 'female',
-    birthDate: '1990-04-05',
-    deathDate: undefined,
-    birthPlace: 'Hà Nội',
-    biography: 'Con gái lớn',
-    avatarUrl: undefined,
-    fatherId: 'p5',
-    motherId: 'p3',
-    spouseIds: ['p12'],
-    childIds: [],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-  {
-    id: 'p8',
-    fullName: 'Nguyễn Văn Linh',
-    gender: 'male',
-    birthDate: '1993-08-12',
-    deathDate: undefined,
-    birthPlace: 'Hà Nội',
-    biography: 'Con trai',
-    avatarUrl: undefined,
-    fatherId: 'p5',
-    motherId: 'p3',
-    spouseIds: [],
-    childIds: [],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-  {
-    id: 'p9',
-    fullName: 'Nguyễn Thị Kiều',
-    gender: 'female',
-    birthDate: '1995-01-20',
-    deathDate: undefined,
-    birthPlace: 'Hà Nội',
-    biography: 'Con gái nhỏ',
-    avatarUrl: undefined,
-    fatherId: 'p5',
-    motherId: 'p3',
-    spouseIds: [],
-    childIds: [],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-  {
-    id: 'p10',
-    fullName: 'Nguyễn Thị Mỹ',
-    gender: 'female',
-    birthDate: '1992-07-08',
-    deathDate: undefined,
-    birthPlace: 'Hà Nội',
-    biography: 'Con gái của chú Em',
-    avatarUrl: undefined,
-    fatherId: 'p6',
-    motherId: 'p4',
-    spouseIds: [],
-    childIds: [],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-  {
-    id: 'p11',
-    fullName: 'Nguyễn Văn Nam',
-    gender: 'male',
-    birthDate: '1997-10-15',
-    deathDate: undefined,
-    birthPlace: 'Hà Nội',
-    biography: 'Con trai của chú Em',
-    avatarUrl: undefined,
-    fatherId: 'p6',
-    motherId: 'p4',
-    spouseIds: [],
-    childIds: [],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-  {
-    id: 'p12',
-    fullName: 'Trương Thanh Hùng',
-    gender: 'male',
-    birthDate: '1988-12-22',
-    deathDate: undefined,
-    birthPlace: 'Hồ Chí Minh City',
-    biography: 'Chồng của Lan',
-    avatarUrl: undefined,
-    fatherId: undefined,
-    motherId: undefined,
-    spouseIds: ['p7'],
-    childIds: [],
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-01-01T00:00:00Z',
-  },
-];
+// Dữ liệu gốc của dòng họ, dùng để seed database khi dev.db còn trống.
+// KHÔNG sửa tay file family-seed.json: nhập/sửa thành viên trong trang /admin,
+// sau đó chạy `npm run export:seed` để ghi lại snapshot từ dev.db.
+//
+// Về ID: gồm 8 chữ số [ab][c][d][e][fgh], trong đó:
+// - 2 chữ số đầu tiên [ab] đại diện cho thế hệ (00-F0, 01-F1, 02-F2,...)
+// - 1 chữ số tiếp theo [c] đại diện cho giới tính (0-Nam, 1-Nữ, 2-Khác)
+// - 1 chữ số tiếp theo [d] đại diện cho quan hệ với dòng họ
+//         (0-thành viên trong họ,
+//         1-con rể,
+//         2-con dâu,
+//         3- người ngoài họ nhưng có liên kết (con nuôi, tái hôn,...))
+// - 1 chữ số tiếp theo [e] đại diện cho chi (0-chi trưởng, 1-chi thứ nhất, 2-chi thứ hai,...)
+// - 3 chữ số cuối cùng [fgh] đại diện cho thứ tự, vai vế trong thế hệ (001, 002,...)
+export const mockPeople: Person[] = familySeed as unknown as Person[];
 
 export const getPeopleMap = () => {
   const map = new Map<string, Person>();
@@ -212,8 +29,8 @@ export const getPersonById = (id: string): Person | undefined => {
 };
 
 export const searchPeople = (query: string): Person[] => {
-  const lowerQuery = query.toLowerCase();
+  const normalizedQuery = removeVietnameseAccents(query).toLowerCase();
   return mockPeople.filter(person =>
-    person.fullName.toLowerCase().includes(lowerQuery)
+    removeVietnameseAccents(person.fullName).toLowerCase().includes(normalizedQuery)
   );
 };

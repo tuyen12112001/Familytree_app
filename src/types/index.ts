@@ -7,6 +7,7 @@ export interface Person {
   birthDate: string; // Năm-Tháng-Ngày
   deathDate?: string; // Năm-Tháng-Ngày
   birthPlace?: string;
+  zodiac?: string; // Can Chi năm sinh (ví dụ: Giáp Tý, Ất Sửu...)
   biography?: string;
   avatarUrl?: string;
   fatherId?: string;

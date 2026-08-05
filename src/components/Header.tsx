@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Trees, Search, Settings } from 'lucide-react';
+import { Home, Trees, Search, Settings, BookOpen } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname();
@@ -35,6 +35,16 @@ export default function Header() {
             >
               <Home className="w-4 h-4" />
               <span className="hidden sm:inline">Trang Chủ</span>
+            </Link>
+
+            <Link
+              href="/chronicle"
+              className={`flex items-center space-x-1 py-2 px-3 text-sm font-medium transition-colors ${isActive(
+                '/chronicle'
+              )}`}
+            >
+              <BookOpen className="w-4 h-4" />
+              <span className="hidden sm:inline">Diễn Nghĩa</span>
             </Link>
 
             <Link

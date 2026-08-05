@@ -12,7 +12,7 @@ interface FamilyTreeNodeProps {
 
 export default function FamilyTreeNode({ person, onClick, isSelected }: FamilyTreeNodeProps) {
   const birthYear = getYearOnly(person.birthDate);
-  const deathYear = person.deathDate ? getYearOnly(person.deathDate) : null;
+  const deathYear = person.deathDate && person.deathDate !== "Còn sống" ? getYearOnly(person.deathDate) || null : null;
   const yearRange = deathYear ? `${birthYear} - ${deathYear}` : `b. ${birthYear}`;
 
   return (

@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma
+
+# database (dựng lại được từ src/data/family-seed.json — xem HUONG-DAN-DU-LIEU.md)
+dev.db
+dev.db-journal
+*.db-shm
+*.db-wal
