@@ -314,10 +314,26 @@
     "deathDate": "1944-04-06",
     "birthPlace": "Đông Hợp, Thái Bình",
     "biography": "chồng của cụ Nguyễn Thị Phước. \nMậu Tuất\n47 tuổi",
-    "spouseIds": [],
+    "spouseIds": [
+      "02100003"
+    ],
     "childIds": [],
     "createdAt": "2026-08-05T12:54:20.130Z",
-    "updatedAt": "2026-08-05T12:54:20.130Z"
+    "updatedAt": "2026-08-06T13:53:20.469Z"
+  },
+  {
+    "id": "02010007",
+    "fullName": "Đặng Văn Năm (Khiêm)",
+    "gender": "male",
+    "birthDate": "1912-??-??",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "Chồng của cụ Nguyễn Thị Thêm\nNhâm Tý",
+    "spouseIds": [
+      "02100007"
+    ],
+    "childIds": [],
+    "createdAt": "2026-08-06T13:54:44.392Z",
+    "updatedAt": "2026-08-06T13:54:44.392Z"
   },
   {
     "id": "02100002",
@@ -352,10 +368,12 @@
     "biography": "Con thứ 5 của cụ Nguyễn Văn Nhớn",
     "fatherId": "01000001",
     "motherId": "01120001",
-    "spouseIds": [],
+    "spouseIds": [
+      "02010005"
+    ],
     "childIds": [],
     "createdAt": "2026-08-05T12:51:45.267Z",
-    "updatedAt": "2026-08-05T12:51:45.267Z"
+    "updatedAt": "2026-08-06T13:53:07.038Z"
   },
   {
     "id": "02100004",
@@ -378,6 +396,22 @@
     ],
     "createdAt": "2026-07-23T13:28:39.913Z",
     "updatedAt": "2026-08-03T13:25:27.885Z"
+  },
+  {
+    "id": "02100007",
+    "fullName": "Nguyễn Thị Thêm",
+    "gender": "female",
+    "birthDate": "1911-12-21",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "Con thứ 7 của cụ Nguyễn Văn Nhớn",
+    "fatherId": "01000001",
+    "motherId": "01120001",
+    "spouseIds": [
+      "02010007"
+    ],
+    "childIds": [],
+    "createdAt": "2026-08-06T13:52:43.348Z",
+    "updatedAt": "2026-08-06T13:54:44.760Z"
   },
   {
     "id": "02120001",
