@@ -226,7 +226,7 @@
   },
   {
     "id": "02000003",
-    "fullName": "Nguyễn Văn Hội",
+    "fullName": "Nguyễn Văn Hội (Nguyễn Thuần Dương)",
     "gender": "male",
     "birthDate": "1898-03-13",
     "deathDate": "1965-12-09",
@@ -238,7 +238,7 @@
     "spouseIds": [],
     "childIds": [],
     "createdAt": "2026-07-23T13:28:40.438Z",
-    "updatedAt": "2026-07-30T12:23:15.896Z"
+    "updatedAt": "2026-08-10T13:24:57.128Z"
   },
   {
     "id": "02000006",
@@ -255,13 +255,13 @@
       "02120006"
     ],
     "childIds": [
-      "03000010",
+      "03000013",
       "03000011",
       "03000012",
       "03000013"
     ],
     "createdAt": "2026-07-23T13:28:40.576Z",
-    "updatedAt": "2026-07-30T12:23:16.009Z"
+    "updatedAt": "2026-08-10T13:27:19.146Z"
   },
   {
     "id": "02010002",
@@ -315,11 +315,11 @@
     "birthPlace": "Đông Hợp, Thái Bình",
     "biography": "chồng của cụ Nguyễn Thị Phước. \nMậu Tuất\n47 tuổi",
     "spouseIds": [
-      "02100003"
+      "02100005"
     ],
     "childIds": [],
     "createdAt": "2026-08-05T12:54:20.130Z",
-    "updatedAt": "2026-08-06T13:53:20.469Z"
+    "updatedAt": "2026-08-10T14:19:55.533Z"
   },
   {
     "id": "02010007",
@@ -359,23 +359,6 @@
     "updatedAt": "2026-07-30T12:23:16.322Z"
   },
   {
-    "id": "02100003",
-    "fullName": "Nguyễn Thị Phước (Tý)",
-    "gender": "female",
-    "birthDate": "1905-??-??",
-    "deathDate": "1945-04-09",
-    "birthPlace": "Đông Hợp, Thái Bình",
-    "biography": "Con thứ 5 của cụ Nguyễn Văn Nhớn",
-    "fatherId": "01000001",
-    "motherId": "01120001",
-    "spouseIds": [
-      "02010005"
-    ],
-    "childIds": [],
-    "createdAt": "2026-08-05T12:51:45.267Z",
-    "updatedAt": "2026-08-06T13:53:07.038Z"
-  },
-  {
     "id": "02100004",
     "fullName": "Nguyễn Thị Trai",
     "gender": "female",
@@ -396,6 +379,23 @@
     ],
     "createdAt": "2026-07-23T13:28:39.913Z",
     "updatedAt": "2026-08-03T13:25:27.885Z"
+  },
+  {
+    "id": "02100005",
+    "fullName": "Nguyễn Thị Phước (Tý)",
+    "gender": "female",
+    "birthDate": "1905-??-??",
+    "deathDate": "1945-04-09",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "Con thứ 5 của cụ Nguyễn Văn Nhớn",
+    "fatherId": "01000001",
+    "motherId": "01120001",
+    "spouseIds": [
+      "02010005"
+    ],
+    "childIds": [],
+    "createdAt": "2026-08-05T12:51:45.267Z",
+    "updatedAt": "2026-08-10T14:19:55.136Z"
   },
   {
     "id": "02100007",
@@ -452,17 +452,17 @@
       "02000006"
     ],
     "childIds": [
-      "03000010",
+      "03000013",
       "03000011",
       "03000012",
       "03000013"
     ],
     "createdAt": "2026-07-23T13:28:40.744Z",
-    "updatedAt": "2026-07-30T12:23:16.685Z"
+    "updatedAt": "2026-08-10T13:27:19.290Z"
   },
   {
     "id": "02130001",
-    "fullName": "Trận Thị Riện",
+    "fullName": "Trần Thị Riện",
     "gender": "female",
     "birthDate": "1903-04-??",
     "deathDate": "1946-05-21",
@@ -484,7 +484,7 @@
       "03000009"
     ],
     "createdAt": "2026-07-23T13:28:39.429Z",
-    "updatedAt": "2026-07-30T12:23:16.794Z"
+    "updatedAt": "2026-08-10T13:16:24.322Z"
   },
   {
     "id": "02130002",
@@ -507,9 +507,9 @@
   },
   {
     "id": "02130004",
-    "fullName": "(Không rõ tên)",
+    "fullName": "Vợ hai của cụ Nguyễn Văn Sinh (Không rõ tên)",
     "gender": "female",
-    "birthDate": "??-??-??",
+    "birthDate": "1900-??-??",
     "deathDate": "??-??-??",
     "birthPlace": "Đông Hợp, Thái Binh",
     "zodiac": "??",
@@ -523,7 +523,7 @@
       "03130021"
     ],
     "createdAt": "2026-07-23T13:28:40.324Z",
-    "updatedAt": "2026-08-03T13:25:39.514Z"
+    "updatedAt": "2026-08-10T14:03:53.336Z"
   },
   {
     "id": "03000005",
@@ -538,16 +538,90 @@
     "spouseIds": [],
     "childIds": [],
     "createdAt": "2026-08-07T15:12:02.745Z",
-    "updatedAt": "2026-08-07T15:12:02.745Z"
+    "updatedAt": "2026-08-10T13:14:42.862Z"
+  },
+  {
+    "id": "03000008",
+    "fullName": "Nguyễn Văn Bằng",
+    "gender": "male",
+    "birthDate": "1941-11-01",
+    "deathDate": "1946-03-08",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "Con trai, người con thứ 5 cùng với vợ hai của cụ Nguyễn Văn Sùng.\nMất sớm năm 6 tuổi\nTuổi Tân Tỵ",
+    "fatherId": "02000001",
+    "motherId": "02130001",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:21:06.787Z",
+    "updatedAt": "2026-08-10T13:21:06.787Z"
+  },
+  {
+    "id": "03000009",
+    "fullName": "Nguyễn Văn Mười",
+    "gender": "male",
+    "birthDate": "1944-07-18",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "Con trai, con thứ 6 cùng với vợ hai của cụ Nguyễn Văn Sùng.\nNgày 15/12/1945, cụ đã bị mẹ bán đi với giá 10 đồng và mất thông tin từ đó",
+    "fatherId": "02000001",
+    "motherId": "02130001",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:23:55.761Z",
+    "updatedAt": "2026-08-10T13:23:55.761Z"
   },
   {
     "id": "03000010",
+    "fullName": "Nguyễn Văn Tập ",
+    "gender": "male",
+    "birthDate": "1931-10-03",
+    "deathDate": "1941-06-21",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con cả của cụ Nguyễn Văn Cừ.\nMất sớm năm 11 tuổi.\nTuổi Tân Tỵ",
+    "fatherId": "02000006",
+    "motherId": "02120006",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:27:00.440Z",
+    "updatedAt": "2026-08-10T13:27:30.386Z"
+  },
+  {
+    "id": "03000011",
+    "fullName": "Nguyễn Văn Cự",
+    "gender": "male",
+    "birthDate": "1935-11-12",
+    "deathDate": "1942-11-10",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con thứ 2 của cụ Nguyễn Văn Cừ.\nMất sớm năm 8 tuổi.\nTuổi Ất Hợi",
+    "fatherId": "02000006",
+    "motherId": "02120006",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:29:02.882Z",
+    "updatedAt": "2026-08-10T13:29:02.882Z"
+  },
+  {
+    "id": "03000012",
+    "fullName": "Nguyễn Cao Ky",
+    "gender": "male",
+    "birthDate": "1944-10-11",
+    "deathDate": "2011-06-02",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con thứ 3 của cụ Nguyễn Văn Cừ.\nHưởng dương 67 tuổi.\nTuổi Giáp Thân.",
+    "fatherId": "02000006",
+    "motherId": "02120006",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:30:52.246Z",
+    "updatedAt": "2026-08-10T13:30:52.246Z"
+  },
+  {
+    "id": "03000013",
     "fullName": "Nguyễn Cao Cơ",
     "gender": "male",
     "birthDate": "1948-12-15",
     "deathDate": "Còn sống",
     "birthPlace": "Đông Hợp, Thái Bình",
-    "biography": "Ông nội - con trai của cụ Nguyễn Văn Cừ",
+    "biography": "con trai, con thứ 4 của cụ Nguyễn Văn Cừ.\ntuổi Mậu Tý.",
     "fatherId": "02000006",
     "motherId": "02120006",
     "spouseIds": [
@@ -559,7 +633,136 @@
       "04000003"
     ],
     "createdAt": "2026-07-23T14:05:54.321Z",
-    "updatedAt": "2026-07-30T12:23:17.118Z"
+    "updatedAt": "2026-08-10T13:31:58.721Z"
+  },
+  {
+    "id": "03000014",
+    "fullName": "Đặng Văn Mậm (Trúc)",
+    "gender": "male",
+    "birthDate": "1936-03-??",
+    "deathDate": "1956-02-16",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con cả của cụ bà Nguyễn Thị Thìn.\nMất sớm năm 20 tuổi.\nTuổi Bính Tý",
+    "fatherId": "02010002",
+    "motherId": "02100002",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:34:41.410Z",
+    "updatedAt": "2026-08-10T13:36:28.378Z"
+  },
+  {
+    "id": "03000019",
+    "fullName": "Nguyễn Văn Lề",
+    "gender": "male",
+    "birthDate": "1928-??-??",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con thứ 2 của cụ Nguyễn Thị Trai.\nBị giặc càn đi mất nên không rõ thông tin.\nTuổi Mậu Thìn. ",
+    "fatherId": "02010004",
+    "motherId": "02100004",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:57:17.622Z",
+    "updatedAt": "2026-08-10T13:57:17.622Z"
+  },
+  {
+    "id": "03000020",
+    "fullName": "Nguyễn Văn Luật",
+    "gender": "male",
+    "birthDate": "1930-??-??",
+    "deathDate": "????-12-29",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con thứ 3 của cụ Nguyễn Thị Trai\nkhông rõ năm mất\ntuổi Canh Ngọ",
+    "fatherId": "02010004",
+    "motherId": "02100004",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T14:03:15.469Z",
+    "updatedAt": "2026-08-10T14:03:15.469Z"
+  },
+  {
+    "id": "03000023",
+    "fullName": "Nguyễn Văn Kích ",
+    "gender": "male",
+    "birthDate": "1927-02-22",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con cả của cụ Nguyễn Thị Phước.\ntuổi Đinh Mão",
+    "fatherId": "02010005",
+    "motherId": "02100005",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T14:17:13.985Z",
+    "updatedAt": "2026-08-10T14:19:55.632Z"
+  },
+  {
+    "id": "03000024",
+    "fullName": "Nguyễn Văn Gừng",
+    "gender": "male",
+    "birthDate": "1930-09-23",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con thứ 2 của cụ Nguyễn Thị Phước.\ntuổi Canh Ngọ",
+    "fatherId": "02010005",
+    "motherId": "02100005",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T14:19:10.141Z",
+    "updatedAt": "2026-08-10T14:19:55.760Z"
+  },
+  {
+    "id": "03000026",
+    "fullName": "Nguyễn Văn Bính ",
+    "gender": "male",
+    "birthDate": "1936-??-??",
+    "deathDate": "1945-??-??",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con thứ 3 của cụ Nguyễn Thị Phước\nMất sớm năm 10 tuổi\nTuổi Bính Tý",
+    "fatherId": "02010005",
+    "motherId": "02100005",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T14:26:51.656Z",
+    "updatedAt": "2026-08-10T14:26:51.656Z"
+  },
+  {
+    "id": "03030016",
+    "fullName": "Đặng Văn Ry",
+    "gender": "male",
+    "birthDate": "1946-12-12",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "Con trai, con cả của cụ Đặng Văn Rần (chồng cụ Nguyễn Thị Thìn) với vợ hai.\nTuổi Bính Tuất.",
+    "fatherId": "02010002",
+    "motherId": "02130002",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:38:27.185Z",
+    "updatedAt": "2026-08-10T13:41:32.943Z"
+  },
+  {
+    "id": "03030021",
+    "fullName": "Nguyễn Văn Khiết",
+    "gender": "male",
+    "birthDate": "1900-??-??",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con cả của cụ Nguyễn Văn Sinh (chồng của cụ Nguyễn Thị Trai) với vợ hai.\nKhông rõ năm sinh năm mất",
+    "fatherId": "02010004",
+    "motherId": "02130004",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T14:05:49.874Z",
+    "updatedAt": "2026-08-10T14:05:49.874Z"
+  },
+  {
+    "id": "03030022",
+    "fullName": "Nguyễn Văn Y (Khương)",
+    "gender": "male",
+    "birthDate": "1900-??-??",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con trai, con thứ hai của cụ Nguyễn Văn Sinh (chồng của cụ Nguyễn Thị Trai) với vợ hai.\nKhông rõ năm sinh năm mất",
+    "fatherId": "02010004",
+    "motherId": "02130004",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T14:06:45.619Z",
+    "updatedAt": "2026-08-10T14:06:45.619Z"
   },
   {
     "id": "03100001",
@@ -618,6 +821,77 @@
     "updatedAt": "2026-08-07T14:53:59.073Z"
   },
   {
+    "id": "03100006",
+    "fullName": "Nguyễn Thị Cát",
+    "gender": "female",
+    "birthDate": "1937-11-16",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "Người con thứ 3 cùng với vợ hai của cụ Nguyễn Văn Sùng\nTuổi Đinh Sửu",
+    "fatherId": "02000001",
+    "motherId": "02130001",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:16:10.635Z",
+    "updatedAt": "2026-08-10T13:19:27.775Z"
+  },
+  {
+    "id": "03100007",
+    "fullName": "Nguyễn Thị Đàm",
+    "gender": "female",
+    "birthDate": "1939-12-10",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "Người con thứ 4 cùng với vợ hai của cụ Nguyễn Văn Sùng\nTuổi Kỷ Mão",
+    "fatherId": "02000001",
+    "motherId": "02130001",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:18:46.138Z",
+    "updatedAt": "2026-08-10T13:18:46.138Z"
+  },
+  {
+    "id": "03100015",
+    "fullName": "Đặng Thị Thó",
+    "gender": "female",
+    "birthDate": "1928-07-18",
+    "deathDate": "1955-09-13",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con gái, con thứ 2 của cụ Nguyễn Thị Thìn.\nMất sớm năm 28 tuổi.\nTuổi Mậu Thìn.",
+    "fatherId": "02010002",
+    "motherId": "02100002",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:36:16.438Z",
+    "updatedAt": "2026-08-10T13:36:16.438Z"
+  },
+  {
+    "id": "03100018",
+    "fullName": "Nguyễn Thị Tý",
+    "gender": "female",
+    "birthDate": "1900-??-??",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con gái, con cả của cụ Nguyễn Thị Trai\n",
+    "fatherId": "02010004",
+    "motherId": "02100004",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:51:48.584Z",
+    "updatedAt": "2026-08-10T13:51:48.584Z"
+  },
+  {
+    "id": "03100025",
+    "fullName": "Nguyễn Thị Khoai ",
+    "gender": "female",
+    "birthDate": "1934-10-??",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con gái, con thứ 3 của cụ Nguyễn Thị Phước.\nKhông rõ năm mất\nTuổi Giáp Tuất",
+    "fatherId": "02010005",
+    "motherId": "02100005",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T14:23:15.033Z",
+    "updatedAt": "2026-08-10T14:23:15.033Z"
+  },
+  {
     "id": "03120010",
     "fullName": "Nguyễn Thị Huệ",
     "gender": "female",
@@ -626,7 +900,7 @@
     "birthPlace": "Nguyên Xá, Thái Bình",
     "biography": "Bà nội - Vợ của Nguyễn Cao Cơ",
     "spouseIds": [
-      "03000010"
+      "03000013"
     ],
     "childIds": [
       "04000001",
@@ -634,7 +908,35 @@
       "04000003"
     ],
     "createdAt": "2026-07-23T14:05:54.469Z",
-    "updatedAt": "2026-07-30T12:23:17.218Z"
+    "updatedAt": "2026-08-10T13:27:19.437Z"
+  },
+  {
+    "id": "03130017",
+    "fullName": "Đặng Thị Cô (Ruyên)",
+    "gender": "female",
+    "birthDate": "1949-09-26",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con gái, con thứ 2 của cụ Đặng Văn Rần (chồng của cụ Nguyễn Thị Thìn) với vợ hai",
+    "fatherId": "02010002",
+    "motherId": "02130002",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T13:41:19.824Z",
+    "updatedAt": "2026-08-10T13:41:45.161Z"
+  },
+  {
+    "id": "03130022",
+    "fullName": "Nguyễn Thị Ấm",
+    "gender": "female",
+    "birthDate": "1900-??-??",
+    "birthPlace": "Đông Hợp, Thái Bình",
+    "biography": "con gái, con thứ 3 của cụ Nguyễn Văn Sinh (chồng của cụ Nguyễn Thị Trai) với vợ hai.\nKhông rõ năm sinh năm mất",
+    "fatherId": "02010004",
+    "motherId": "02130004",
+    "spouseIds": [],
+    "childIds": [],
+    "createdAt": "2026-08-10T14:07:39.564Z",
+    "updatedAt": "2026-08-10T14:07:39.564Z"
   },
   {
     "id": "04000001",
@@ -644,7 +946,7 @@
     "deathDate": "Còn sống",
     "birthPlace": "Đông Hợp, Thái Bình",
     "biography": "Bố",
-    "fatherId": "03000010",
+    "fatherId": "03000013",
     "motherId": "03120010",
     "spouseIds": [
       "04120001"
@@ -653,7 +955,7 @@
       "05000001"
     ],
     "createdAt": "2026-07-23T14:05:54.610Z",
-    "updatedAt": "2026-07-30T12:23:17.354Z"
+    "updatedAt": "2026-08-10T13:27:19.568Z"
   },
   {
     "id": "04000002",
@@ -663,7 +965,7 @@
     "deathDate": "Còn sống",
     "birthPlace": "Đông Hợp, Thái Bình",
     "biography": "Chú",
-    "fatherId": "03000010",
+    "fatherId": "03000013",
     "motherId": "03120010",
     "spouseIds": [
       "04120002"
@@ -673,7 +975,7 @@
       "05000003"
     ],
     "createdAt": "2026-07-23T14:05:54.904Z",
-    "updatedAt": "2026-07-30T12:23:17.502Z"
+    "updatedAt": "2026-08-10T13:27:19.722Z"
   },
   {
     "id": "04000003",
@@ -683,12 +985,12 @@
     "deathDate": "Còn sống",
     "birthPlace": "Đông Hợp, Đông Hưng, Thái Bình",
     "biography": "Chú thứ ba - con thứ ba của ông Nguyễn Cao Cơ",
-    "fatherId": "03000010",
+    "fatherId": "03000013",
     "motherId": "03120010",
     "spouseIds": [],
     "childIds": [],
     "createdAt": "2026-07-23T14:14:13.800Z",
-    "updatedAt": "2026-07-30T12:23:17.640Z"
+    "updatedAt": "2026-08-10T13:27:19.861Z"
   },
   {
     "id": "04120001",
