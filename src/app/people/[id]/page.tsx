@@ -71,7 +71,7 @@ export default function PersonPage() {
   const father = person.fatherId ? peopleMap.get(person.fatherId) : null;
   const mother = person.motherId ? peopleMap.get(person.motherId) : null;
   const spouses = person.spouseIds.map(id => peopleMap.get(id)).filter(Boolean) as Person[];
-  const children = person.childIds.map(id => peopleMap.get(id)).filter(Boolean) as Person[];
+  const children = allPeople.filter(p => p.fatherId === person.id || p.motherId === person.id);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

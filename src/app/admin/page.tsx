@@ -189,6 +189,7 @@ export default function AdminPage() {
   const [idError, setIdError] = useState('');
   const [birthParts, setBirthParts] = useState<DateParts>(EMPTY_DATE_PARTS);
   const [deathParts, setDeathParts] = useState<DateParts>(EMPTY_DATE_PARTS);
+  const [spouseIds, setSpouseIds] = useState<string[]>([]);
   const [dateError, setDateError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -206,6 +207,11 @@ export default function AdminPage() {
   const watchedGender = watch('gender');
   const genderDigit = watchedGender === 'male' ? '0' : watchedGender === 'female' ? '1' : watchedGender === 'other' ? '2' : idParts.genderDigit;
   const composedId = composeId({ ...idParts, genderDigit });
+
+  // Con cái được suy ra từ trường Cha/Mẹ của người khác, không nhập trực tiếp
+  const derivedChildren = editingId
+    ? people.filter(p => p.fatherId === editingId || p.motherId === editingId)
+    : [];
 
   // Fetch dữ liệu từ API khi trang load
   useEffect(() => {
@@ -292,6 +298,7 @@ export default function AdminPage() {
         birthDate,
         deathDate: isAlive ? "Còn sống" : composeDateParts(deathParts) || undefined,
         avatarUrl: avatarUrl || undefined,
+        spouseIds,
         ...(editingId
           ? { id: editingId, ...(composedId !== editingId && { newId: composedId }) }
           : { id: composedId }),
@@ -317,6 +324,7 @@ export default function AdminPage() {
       setIsAlive(false);
       setBirthParts(EMPTY_DATE_PARTS);
       setDeathParts(EMPTY_DATE_PARTS);
+      setSpouseIds([]);
       setAvatarUrl('');
       setAvatarPreview('');
       setError(null);
@@ -332,6 +340,7 @@ export default function AdminPage() {
       setIsAlive(alive);
       setBirthParts(parseDateParts(person.birthDate));
       setDeathParts(alive ? EMPTY_DATE_PARTS : parseDateParts(person.deathDate));
+      setSpouseIds(person.spouseIds ?? []);
       setDateError('');
       setAvatarUrl(person.avatarUrl || '');
       setAvatarPreview(person.avatarUrl || '');
@@ -375,6 +384,7 @@ export default function AdminPage() {
     setIsAlive(false);
     setBirthParts(EMPTY_DATE_PARTS);
     setDeathParts(EMPTY_DATE_PARTS);
+    setSpouseIds([]);
     setDateError('');
     setAvatarUrl('');
     setAvatarPreview('');
@@ -830,6 +840,80 @@ export default function AdminPage() {
                         </option>
                       ))}
                   </select>
+                </div>
+
+                {/* Spouses */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-900 mb-1">
+                    Vợ/Chồng
+                  </label>
+                  <select
+                    value=""
+                    onChange={(e) => {
+                      const id = e.target.value;
+                      if (id) setSpouseIds([...spouseIds, id]);
+                    }}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  >
+                    <option value="">-- Thêm vợ/chồng --</option>
+                    {people
+                      .filter(p => p.id !== editingId && !spouseIds.includes(p.id))
+                      .map(p => (
+                        <option key={p.id} value={p.id}>
+                          {p.fullName} ({p.id})
+                        </option>
+                      ))}
+                  </select>
+                  {spouseIds.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {spouseIds.map(id => {
+                        const spouse = people.find(p => p.id === id);
+                        return (
+                          <span
+                            key={id}
+                            className="inline-flex items-center gap-1.5 px-2 py-1 bg-purple-50 border border-purple-200 rounded-lg text-sm text-purple-800"
+                          >
+                            {spouse ? spouse.fullName : id}
+                            <button
+                              type="button"
+                              onClick={() => setSpouseIds(spouseIds.filter(s => s !== id))}
+                              aria-label={`Gỡ ${spouse?.fullName ?? id}`}
+                              className="text-purple-500 hover:text-purple-800"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </span>
+                        );
+                      })}
+                    </div>
+                  )}
+                  <p className="text-xs text-slate-400 mt-1">
+                    Quan hệ được đồng bộ 2 chiều: người kia cũng tự có tên thành viên này.
+                  </p>
+                </div>
+
+                {/* Children (read-only, suy ra từ trường Cha/Mẹ) */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-900 mb-1">
+                    Con Cái
+                  </label>
+                  {derivedChildren.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {derivedChildren.map(child => (
+                        <span
+                          key={child.id}
+                          className="px-2 py-1 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800"
+                        >
+                          {child.fullName} ({child.id})
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-sm text-slate-400 italic">Chưa có</p>
+                  )}
+                  <p className="text-xs text-slate-400 mt-1">
+                    Không nhập ở đây. Muốn thêm con, hãy mở hồ sơ người con và chọn thành viên này ở ô Cha hoặc Mẹ.
+                  </p>
                 </div>
 
                 {/* Buttons */}

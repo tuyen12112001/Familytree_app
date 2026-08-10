@@ -178,7 +178,7 @@ export const getRelationship = (
     return person1.gender === 'male' ? 'Chồng' : 'Vợ';
   }
   
-  if (person1.childIds.includes(person2.id)) {
+  if (person2.fatherId === person1.id || person2.motherId === person1.id) {
     return person2.gender === 'male' ? 'Con trai' : 'Con gái';
   }
   

@@ -82,6 +82,25 @@ async function initializeDatabase(): Promise<void> {
   }
 }
 
+// Đồng bộ quan hệ vợ/chồng 2 chiều: nếu A khai B là vợ/chồng thì B cũng phải có A,
+// và nếu A gỡ B ra thì B cũng phải mất liên kết ngược lại.
+async function syncSpouseLinks(personId: string, spouseIds: string[]): Promise<void> {
+  const others = await prisma.person.findMany({ where: { id: { not: personId } } });
+  for (const other of others) {
+    const current: string[] = other.spouseIds ? JSON.parse(other.spouseIds) : [];
+    const shouldLink = spouseIds.includes(other.id);
+    const hasLink = current.includes(personId);
+    if (shouldLink === hasLink) continue;
+    const next = shouldLink
+      ? [...current, personId]
+      : current.filter(id => id !== personId);
+    await prisma.person.update({
+      where: { id: other.id },
+      data: { spouseIds: JSON.stringify(next) },
+    });
+  }
+}
+
 let initialized = false;
 
 async function ensureInitialized(): Promise<void> {
@@ -126,6 +145,7 @@ export async function addPerson(
       childIds: JSON.stringify(person.childIds ?? []),
     },
   });
+  await syncSpouseLinks(row.id, person.spouseIds ?? []);
   return deserializePerson(row);
 }
 
@@ -193,6 +213,10 @@ export async function updatePerson(
     }
   }
 
+  if (data.spouseIds !== undefined) {
+    await syncSpouseLinks(newId ?? id, data.spouseIds);
+  }
+
   return deserializePerson(row);
 }
 
@@ -200,5 +224,29 @@ export async function deletePerson(id: string): Promise<boolean> {
   const existing = await prisma.person.findUnique({ where: { id } });
   if (!existing) return false;
   await prisma.person.delete({ where: { id } });
+
+  // Gỡ mọi tham chiếu tới người vừa xoá để không còn liên kết trỏ vào khoảng trống
+  const others = await prisma.person.findMany();
+  for (const other of others) {
+    const spouseIds: string[] = other.spouseIds ? JSON.parse(other.spouseIds) : [];
+    const childIds: string[] = other.childIds ? JSON.parse(other.childIds) : [];
+    const needsUpdate =
+      other.fatherId === id ||
+      other.motherId === id ||
+      spouseIds.includes(id) ||
+      childIds.includes(id);
+    if (needsUpdate) {
+      await prisma.person.update({
+        where: { id: other.id },
+        data: {
+          fatherId: other.fatherId === id ? null : other.fatherId,
+          motherId: other.motherId === id ? null : other.motherId,
+          spouseIds: JSON.stringify(spouseIds.filter(s => s !== id)),
+          childIds: JSON.stringify(childIds.filter(c => c !== id)),
+        },
+      });
+    }
+  }
+
   return true;
 }

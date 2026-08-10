@@ -12,7 +12,7 @@ Sau mỗi lần thêm/sửa/xoá thành viên trong trang `/admin`:
 ```bash
 npm run export:seed
 git add src/data/family-seed.json public/avatars
-git commit -m "Cập nhật thông tin dòng họ"
+git commit -m "Cap nhat thong tin dong ho"
 ```
 
 Chỉ 3 dòng đó. Nếu quên chạy `export:seed` thì dữ liệu vừa nhập **chưa được lưu vào git**,

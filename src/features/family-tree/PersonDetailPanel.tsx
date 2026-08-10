@@ -24,7 +24,9 @@ export default function PersonDetailPanel({
   const father = person.fatherId ? peopleMap.get(person.fatherId) : null;
   const mother = person.motherId ? peopleMap.get(person.motherId) : null;
   const spouses = person.spouseIds.map(id => peopleMap.get(id)).filter(Boolean) as Person[];
-  const children = person.childIds.map(id => peopleMap.get(id)).filter(Boolean) as Person[];
+  const children = [...peopleMap.values()].filter(
+    p => p.fatherId === person.id || p.motherId === person.id
+  );
 
   return (
     <div className="w-80 bg-white border-l border-slate-200 shadow-lg flex flex-col fixed right-0 top-16 bottom-0 z-40">
